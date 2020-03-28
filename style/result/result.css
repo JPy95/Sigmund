@@ -1,0 +1,50 @@
+@media only screen and (max-width: 600px){
+  html{
+    height: 100%;
+  }
+    
+  body{
+    color: white;
+    background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
+  }
+
+  #title{
+    background-color: #540D70;
+    height: 100px;
+    padding-left: 20px;
+    box-shadow: -1px 5px 15px 0px #0000005c;
+  }
+
+  h2{
+    margin-top: 25px;
+  }
+
+  h4{
+    padding-top: 55px;
+  }
+
+  a{
+    color: white;
+  }
+
+  a:active,
+  a:focus,
+  a:hover{
+    color: black;
+  }
+
+  .result{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  p{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
