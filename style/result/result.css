@@ -10,7 +10,7 @@
 
   #title{
     background-color: #540D70;
-    height: 150px;
+    height: 100px;
     padding: 0 20px;
     box-shadow: -1px 5px 15px 0px #0000005c;
   }
@@ -21,12 +21,12 @@
   }
 
   h4{
-    padding-top: 100px;
+    padding-top: 60px;
   }
 
   a{
     color: white;
-    margin-top: 10%;
+    margin-top: 5%;
   }
 
   a:active,
@@ -45,10 +45,12 @@
 
   p{
     margin-top: 20px;
+    margin-bottom: 0px;
     text-align: center;
     font-size: 20px;
     font-weight: 400;
     padding: 0 10px;
+    height: 100%;
   }
 
   .btn-result-style{
