@@ -208,7 +208,7 @@
       id: 'question'
     });
     
-    var header = $('<div id="title"><h2>' + (questions[index].question) + '...</h2></div>');
+    var header = $('<div id="title"><h2>' + (questions[index].question) + '...</h2></div><div class="progress" style="height: 2px;"> <div class="progress-bar" role="progressbar" style="width: '+(index/25)*100+'%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div>');
     qElement.append(header);
     
     var radioButtons = createRadios(index);
@@ -254,18 +254,14 @@
           $('input[value='+selections[questionCounter]+']').prop('checked', true);
         }
       }else {
-        //var projeto = window.location.search.substring(1).split('&')[0].split('=')[1];
-        //var aluno = window.location.search.substring(1).split('&')[1].split('=')[1];
-        window.location.replace("result.html");
-        /*
         $.ajax({
-          data: 'result='+selections+'&projeto='+projeto+'&aluno='+aluno,
-          url: 'php/servicos/_questionario.php?',
+          data: 'result='+selections,
+          url: 'php/servicos/_quiz.php?',
           method: 'POST', // or GET
           success: function(result){
-            window.location.replace("questionario.php");
+            window.location.replace("result.php?perfil="+result);
           }
-        });*/
+        });
         $('#next').hide();
       }
     });

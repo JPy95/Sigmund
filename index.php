@@ -16,7 +16,7 @@
       <img src="img/Logo/Logo.png">
     </div>
     <div class='btn-index'>
-      <a href="quiz.html"><button class='btn-sigmund-style'>Responder Questionário</button></a>
+      <a href="quiz.php"><button class='btn-sigmund-style'>Responder Questionário</button></a>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
