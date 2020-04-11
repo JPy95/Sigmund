@@ -16,29 +16,38 @@
       <img src="view/index/img/Logo.png">
     </div>
     <div class='btn-index'>
+      <a  href="#"><button class="btn-sigmund-style"style="background-color: #930394;">Criar Projeto</button></a>
+       <a  href="view/quiz/quiz.html?openProject=true" data-toggle="modal" data-target="#siteModal"><button class="btn-sigmund-style"style="background-color: #410987;">Entrar em Projeto</button></a>
       <a href="view/quiz/quiz.html"><button class='btn-sigmund-style '>Responder Questionário</button></a>
-
-      <a  href="view/quiz/quiz.html?openProject=true" data-toggle="modal" data-target="#siteModal"><button class="btn-sigmund-style"style="background-color: #410987;">Entrar em Projeto</button></a>
-
       <!--Modal-->
-      <div class="modal fade" id="siteModal" tabindex="-1" role ="dialog">
+      <form class="modal fade" id="siteModal" tabindex="-1" role ="dialog">
         <div class="modal-dialog modal-dialog-centered"" role="document">
           <div class="modal-content">
+            <!--Header-->
             <div class="modal-header">
                 <h5 class="modal-title">Olá Aluno</h5>
                 <button type="button" class="close" data-dismiss="modal">
                   <span>&times;</span>
                 </button>
             </div>
+            <!--Body-->
             <div class="modal-body">
-              <p>Digite os Dados</p>
+              <div class="form-group">
+                <input type="name" class="form-control" id="nome" placeholder="Digite seu nome">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="email" placeholder="Digite seu email">
+              </div>
             </div>
+            <!--Footer-->
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Done</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Ir para questionário</button>
+              
             </div>
           </div>
         </div>
-      </div>
+      </form>
 
     </div>
     <!-- Optional JavaScript -->

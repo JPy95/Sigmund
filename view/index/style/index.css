@@ -1,3 +1,4 @@
+@media only screen and (max-width: 600px){
 html{
   height: 100%;
 }
@@ -35,4 +36,8 @@ body{
 .modal-body{
   color: black !important;
 }
+.modal-header{
+  color: black !important;
+}
+
 
