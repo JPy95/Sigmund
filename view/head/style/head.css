@@ -1,0 +1,12 @@
+html{
+    height: 100%;
+}
+
+body{
+color: white;
+background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
+}
+
+nav{
+    background-color: #540D70 !important;
+}
