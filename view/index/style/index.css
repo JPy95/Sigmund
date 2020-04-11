@@ -1,37 +1,38 @@
-  html{
-    height: 100%;
-  }
-  
-  body{
-    color: white;
-    background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
-  }
-  
-  .logo-sigmund{
-    width: 56%;
-    margin: 0 auto;
-    margin-top: 25%;
-  }
-  
-  .btn-index{
-    width: 65%;
-    margin: 0 auto;
-    margin-top: 10%;
-  }
-  
-  .btn-sigmund-style{
-    background-color: #540D70;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    box-shadow: 2px 2px 15px 0px black;
-    font-family: Calibri;
-    font-weight: 600;
-    font-size: 17px;
-    height: 45px;
-    width: 100%;
-    margin-bottom: 25px;
-  }
-  .modalDi
+html{
+  height: 100%;
+}
+
+body{
+  color: white;
+  background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
+}
+
+.logo-sigmund{
+  width: 56%;
+  margin: 0 auto;
+  margin-top: 25%;
+}
+
+.btn-index{
+  width: 65%;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+.btn-sigmund-style{
+  background-color: #540D70;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 2px 2px 15px 0px black;
+  font-family: Calibri;
+  font-weight: 600;
+  font-size: 17px;
+  height: 45px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+.modal-body{
+  color: black !important;
 }
 
