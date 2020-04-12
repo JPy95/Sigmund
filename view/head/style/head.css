@@ -1,12 +1,36 @@
 html{
-    height: 100%;
+    background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
 }
 
 body{
-color: white;
-background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
+    height: 100%;
+    color: white;
+    background-color: transparent;
 }
-
 nav{
     background-color: #540D70 !important;
+}
+
+.navbar{
+    height: 75px;
+    padding: 0px 50px;
+}
+
+.navbar-brand{
+    margin: 0;
+    padding: 0;
+}
+
+@media only screen and (max-width: 600px){
+    .navbar{
+        display: none;
+    }
+
+    html{
+        height: 100%; 
+    }
+
+    body{
+        height: auto;
+    }
 }

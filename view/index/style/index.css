@@ -1,23 +1,46 @@
-@media only screen and (max-width: 600px){
-html{
-  height: 100%;
+.modal-body{
+  color: black !important;
+}
+.modal-header{
+  background-color: #38094A;
+  border: none;
 }
 
-body{
+.close{
   color: white;
-  background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
+}
+
+.modal-footer{
+  border: none;
 }
 
 .logo-sigmund{
-  width: 56%;
-  margin: 0 auto;
-  margin-top: 25%;
+  display: none;
 }
 
-.btn-index{
-  width: 65%;
-  margin: 0 auto;
-  margin-top: 10%;
+#mobile{
+  display: none;
+}
+
+.services-group{
+  display: flex;
+  border-bottom: 1px solid;
+}
+
+.services-img{
+  width: 20%;
+  height: 20%;
+  border-radius: 60%;
+  box-shadow: 0px 0px 12px 0px #545454;
+}
+
+.services-resume{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 40px;
 }
 
 .btn-sigmund-style{
@@ -31,13 +54,46 @@ body{
   font-size: 17px;
   height: 45px;
   width: 100%;
-  margin-bottom: 25px;
-}
-.modal-body{
-  color: black !important;
-}
-.modal-header{
-  color: black !important;
 }
 
+h5{
+  align-self: baseline;
+}
 
+@media only screen and (max-width: 600px){
+
+  #mobile{
+    display: block;
+  }
+
+  #web{
+    display: none;
+  }
+
+  .logo-sigmund{
+    display: block;
+    width: 56%;
+    margin: 0 auto;
+    margin-top: 25%;
+  }
+
+  .btn-index{
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 10%;
+  }
+
+  .btn-sigmund-style{
+    background-color: #540D70;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 2px 2px 15px 0px black;
+    font-family: Calibri;
+    font-weight: 600;
+    font-size: 17px;
+    height: 45px;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+}

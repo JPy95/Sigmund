@@ -1,12 +1,87 @@
+html{
+  height: 100% !important;
+}
+
+
+#title{
+  background-color: #540D70;
+  height: 150px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding:0 20px;
+  box-shadow: -1px 5px 15px 0px #0000005c;
+}
+
+h2{
+  font-size: 33px;
+  margin: 0;
+}
+
+input{
+  -webkit-appearance: none;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  color: white;
+  font-weight: 600;
+  margin: 2% auto;
+  width: 50%;
+}
+
+li{
+  height: 55px;
+  display: flex;
+  align-items: center;
+  margin: 10px 15px;
+  border-left: 7px solid #38094A;
+  border-radius: 5px 0px 0px 5px;
+  border-bottom: 1px solid #ffffff6b;
+}
+
+li:active,
+li:hover,
+li:focus{
+  border-left-color: #ffffff;
+  background-color: #00000063;
+  border-radius: 5px;
+}
+
+label{
+  font-size: 17px;
+  margin: 0;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.btn-quiz{
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.btn-quiz-style{
+  background-color: #540D70;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 2px 2px 15px 0px black;
+  font-family: Calibri;
+  font-weight: 600;
+  font-size: 17px;
+  height: 45px;
+  width: 100%;
+}
+
+.progress-bar{
+  background-color: #A30356 !important;
+}
+
 @media only screen and (max-width: 600px){
-  html{
-    height: 100%;
-  }
-    
-  body{
-    color: white;
-    background: linear-gradient(to top, #38094A 0%, #A11AD6 100%);
-  }
 
   #title{
     background-color: #540D70;
@@ -30,42 +105,20 @@
   }
 
   ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 15%;
-    color: white;
-    font-weight: 600;
+    margin: 15% 0;
+    width: 100%;
   }
 
   li{
     height: 75px;
-    display: flex;
-    align-items: center;
-    margin: 10px 15px;
-    border-left: 7px solid #38094A;
-    border-radius: 5px 0px 0px 5px;
-    border-bottom: 1px solid #ffffff6b;
-  }
-
-  li:active,
-  li:hover,
-  li:focus{
-    border-left-color: #ffffff;
-    background-color: #00000063;
-    border-radius: 5px;
   }
 
   label{
-    font-size: 22px;
-    margin: 0;
-    padding-left: 10px;
-    width: 100%;
+    font-size: 20px;
   }
 
   .btn-quiz{
     width: 65%;
-    margin: 0 auto;
-    margin-top: 20%;
   }
 
   .btn-quiz-style{
