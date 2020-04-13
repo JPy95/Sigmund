@@ -17,21 +17,16 @@ class Projects(Resource):
   conn,nameProject,date,idProjeto=None,None,None,None
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameProject = request.args.get('nameProject')
-    self.date = request.args.get('date')
-    self.idProjeto = request.args.get('idProjeto')
+    self.nameProject = request.json['nameProject']
+    self.date = str(datetime.now())[:str(datetime.now()).find('.')]
 
   def post(self):
     self.conn.execute("insert into sigmundi.projetos values('{0}',DEFAULT, '{1}')".format(self.date,self.nameProject))
     return self.get()
 
   def get(self):
-    if(self.idProjeto is None):
-      query = self.conn.execute("select * from sigmundi.projetos where nomeProjeto = '{0}' and date_trunc('second',datainclusao) = '{1}' ".format(self.nameProject,self.date))
-      result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    else:
-      query = self.conn.execute("select * from sigmundi.projetos where idProjeto = {}".format(self.idProjeto))
-      result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+    query = self.conn.execute("select * from sigmundi.projetos where nomeProjeto = '{0}' and date_trunc('second',datainclusao) = '{1}' ".format(self.nameProject,self.date))
+    result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
     
     return jsonify(result)
 
@@ -41,10 +36,10 @@ class Students(Resource):
   
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameStudent = request.args.get('nameStudent')
-    self.email = request.args.get('email')
-    self.idProjeto = request.args.get('idProjeto')
-    self.perfil = request.args.get('profile')
+    self.nameStudent = request.json['nameStudent']
+    self.email = request.json['email']
+    self.idProjeto = request.json['idProjeto']
+    self.perfil = request.json['profile']
 
   def post(self):
     if(self.check_student(self.email) == 0):
@@ -73,8 +68,8 @@ class Quiz(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.respostas = request.args.get('respostas')
-    self.idaluno = request.args.get('idaluno')
+    self.respostas = request.json['respostas']
+    self.idaluno = request.json['idaluno']
 
   def post(self):
     self.conn.execute('insert into sigmundi.questionarios values(DEFAULT,{0},{1})'.format(self.respostas,self.idaluno))
@@ -86,7 +81,7 @@ class Groups(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.idProjeto = request.args.get('idProjeto')
+    self.idProjeto = request.json['idProjeto']
 
   def get(self):
     #Busca questionarios

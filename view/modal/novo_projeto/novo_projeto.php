@@ -10,11 +10,11 @@
         </button>
       </div>
       <!--Body-->
-      <form action="">
+      <form action="control/projeto_service.php" method="post">
         <div class="modal-body">
           <div class="form-group">
             <label for="nome">Qual é o nome do Projeto?</label>
-            <input type="name" class="form-control" id="nome" placeholder="Nome do projeto">
+            <input type="name" class="form-control" id="nome" name='name' placeholder="Nome do projeto">
           </div>
           <div class="form-group">
             <label for="alunos">E qual a quantidade de alunos?</label>

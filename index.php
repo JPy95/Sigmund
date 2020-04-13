@@ -5,7 +5,7 @@
   <body>
     <?php include_once('view/modal/entrar_projeto/entrar_projeto.php')?>
     <?php include_once('view/modal/novo_projeto/novo_projeto.php')?>
-    <?php include_once('view/navbar/navbar.php')?>
+    <?php include_once('view/navbar/navbar-index.php')?>
     <div class='logo-sigmund'>
       <img src="view/index/img/Logo.png">
     </div>
