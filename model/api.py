@@ -14,20 +14,29 @@ api = Api(app)
 
 class Projects(Resource):
 
-  conn,nameProject,date,idProjeto=None,None,None,None
+  conn,nameProject,date,idProjeto,qtdAlunos=None,None,None,None,None
   def __init__(self):
     self.conn = db_connect.connect()
     self.nameProject = request.json['nameProject']
+    self.qtdAlunos = request.json['qtdAlunos']
     self.date = str(datetime.now())[:str(datetime.now()).find('.')]
 
   def post(self):
-    self.conn.execute("insert into sigmundi.projetos values('{0}',DEFAULT, '{1}')".format(self.date,self.nameProject))
+    self.conn.execute("insert into sigmundi.projetos values('{0}',DEFAULT, '{1}',{2})".format(self.date,self.nameProject,self.qtdAlunos))
     return self.get()
 
   def get(self):
     query = self.conn.execute("select * from sigmundi.projetos where nomeProjeto = '{0}' and date_trunc('second',datainclusao) = '{1}' ".format(self.nameProject,self.date))
     result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    
+    return jsonify(result)
+
+class ProjectsId(Resource):
+  def get(self,id):
+    conn = db_connect.connect()
+    query = conn.execute("select count(idAluno) - qtdAlunos as total_alunos from sigmundi.grupos a "+
+                         "inner join sigmundi.projetos b on b.idProjeto = a.idProjeto "+
+                         "where a.idProjeto = {}".format(id))
+    result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
     return jsonify(result)
 
 class Students(Resource):
@@ -112,6 +121,7 @@ class Groups(Resource):
     return dumps({'success':True})
 
 api.add_resource(Projects, '/projects')
+api.add_resource(ProjectsId, '/projects/<id>')
 api.add_resource(Students, '/students')
 api.add_resource(Quiz, '/quiz')
 api.add_resource(Groups, '/grupos')

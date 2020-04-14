@@ -254,12 +254,16 @@
           $('input[value='+selections[questionCounter]+']').prop('checked', true);
         }
       }else {
+        var nomeAluno = localStorage.getItem('nomeAluno');
+        var email = localStorage.getItem('email');
+        var projeto = localStorage.getItem('projeto');
         $.ajax({
-          data: 'result='+selections,
-          url: 'php/servicos/_quiz.php?',
+          data: 'answers='+selections+'&nomeAluno='+nomeAluno+'&email='+email+'&projeto='+projeto,
+          url: '../../control/alunos_service.php?',
           method: 'POST', // or GET
           success: function(result){
-            window.location.replace("result.php?perfil="+result);
+            alert(result);
+            //window.location.replace("result.php?perfil="+result);
           }
         });
         $('#next').hide();

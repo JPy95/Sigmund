@@ -18,7 +18,7 @@
           </div>
           <div class="form-group">
             <label for="alunos">E qual a quantidade de alunos?</label>
-            <input type="number" class="form-control w-50" id="alunos" min='4'>
+            <input type="number" class="form-control w-50" id="alunos" name='alunos' min='4'>
           </div>
         </div>
         <!--Footer-->

@@ -3,7 +3,7 @@
   <?php include_once('view/head/head.php')?>
   <link rel="stylesheet" href="view/index/style/index.css">
   <body>
-    <?php include_once('view/modal/entrar_projeto/entrar_projeto.php')?>
+    <?php include_once('view/modal/entrar_projeto/novo_aluno.php')?>
     <?php include_once('view/modal/novo_projeto/novo_projeto.php')?>
     <?php include_once('view/navbar/navbar-index.php')?>
     <div class='logo-sigmund'>
