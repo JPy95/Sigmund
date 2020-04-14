@@ -6,7 +6,6 @@ from json import dumps
 import pandas as pd
 import ml #Algoritmo de Clusterização
 
-
 model = ml.SigmindMl()
 db_connect = create_engine('postgresql://sigmund:Unibh2020@db1-sigmund.cdrfdxumcxao.us-east-1.rds.amazonaws.com:5432/sigmund')
 app = Flask(__name__)
@@ -22,7 +21,7 @@ class Projects(Resource):
     self.date = str(datetime.now())[:str(datetime.now()).find('.')]
 
   def post(self):
-    self.conn.execute("insert into sigmundi.projetos values('{0}',DEFAULT, '{1}',{2})".format(self.date,self.nameProject,self.qtdAlunos))
+    self.conn.execute("insert into sigmundi.projetos values('{0}',DEFAULT, '{1}')".format(self.date,self.nameProject))
     return self.get()
 
   def get(self):
@@ -32,12 +31,26 @@ class Projects(Resource):
 
 class ProjectsId(Resource):
   def get(self,id):
+    if(self.check_project(id) == 0):
+      result = dumps({'success':False})
+    else:
+      conn = db_connect.connect()
+      query = conn.execute("select count(idAluno) - qtdAlunos as total_alunos from sigmundi.grupos a "+
+                          "inner join sigmundi.projetos b on b.idProjeto = a.idProjeto "+
+                          "where a.idProjeto = {}".format(id))
+      result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+      result = jsonify(result)
+    return result
+
+  def check_project(self, id):
+    '''
+      Verifica se o projeto existe
+    '''
     conn = db_connect.connect()
-    query = conn.execute("select count(idAluno) - qtdAlunos as total_alunos from sigmundi.grupos a "+
-                         "inner join sigmundi.projetos b on b.idProjeto = a.idProjeto "+
-                         "where a.idProjeto = {}".format(id))
-    result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    return jsonify(result)
+    query = conn.execute('select * from sigmundi.projetos where idProjeto = {}'.format(id))
+    return query.cursor.rowcount 
+  
+
 
 class Students(Resource):
 
@@ -53,15 +66,15 @@ class Students(Resource):
   def post(self):
     if(self.check_student(self.email) == 0):
       self.conn.execute("insert into sigmundi.alunos values(now(), DEFAULT,'{0}','{1}')".format(self.nameStudent,self.email))
-    
-    return self.get()
+      self.get()
+    else:
+      return self.get()
 
   def check_student(self,email):
     '''
       Verifica se o aluno já está cadastrado no banco;
       returno 0 ou retorno > 0;
     '''
-
     query = self.conn.execute("select * from sigmundi.alunos where email = '{0}' ".format(self.email))
     return query.cursor.rowcount
 

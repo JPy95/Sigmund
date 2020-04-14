@@ -1,32 +1,23 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style/result/result.css">
-  </head>
+  <?php include_once('../head/head.php')?>
+  <link rel="stylesheet" href="style/result.css">
   <body>
-    <div id='title'>
-      <h4>Seu perfil é...</h4>
-    </div>
-    <div class="result">
-      <div style="display: block;text-align: center;">
+    <?php include_once('../navbar/navbar.php')?>
+    <div class="result container col-sm-4 mt-3">
+      <div class="col-12 mb-3" style="text-align: center;">
         <h2><?php
           if($_GET['perfil']==1){
             echo 'Analista';
           } elseif($_GET['perfil']==2){
             echo 'Comunicador';
           } elseif($_GET['perfil']==3){
-            echo 'Executor';
-          } else {
             echo 'Planejador';
+          } else {
+            echo 'Executor';
           }
         ?></h2><br>
-        <img id='perfil' src="img/perfil/<?php echo $_GET['perfil']?>.png">
+        <img id='perfil' src="img/<?php echo $_GET['perfil']?>.png">
       </div>
       <p>
         <?php
@@ -39,17 +30,17 @@
                   e também uma pessoa sempre entusiasmada com projetos e novidades, tende a ser muito 
                   otimista e relaciona-se com facilidade.';
           } elseif($_GET['perfil'] == 3){
+            echo 'Você é uma pessoa estável e paciente, de ritmo constante e alto grau de conservadorismo, 
+                  dificilmente entra em pânico e tem uma pequena capacidade de improviso.';
+          } else {
             echo 'Você é uma pessoa dotada de extrema autoconfiança, esse tipo de pessoa é dominante e em 
                   casos extremos, pode ser autoritária e ditatorial, aceita e se dá bem com desafios e 
                   dificuldades, possui senso de competitividade extremo e costuma ser corajoso em suas 
                   posturas e ao defender seus pontos de vista.';
-          } else {
-            echo 'Você é uma pessoa estável e paciente, de ritmo constante e alto grau de conservadorismo, 
-                  dificilmente entra em pânico e tem uma pequena capacidade de improviso.';
           }
         ?>
       </p>
-      <a href="quiz.php"><button class='btn-result-style'>Responder novamente?</button></a>
+      <a href="quiz.php"><button class='btn-result-style mt-2'>Responder novamente?</button></a>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

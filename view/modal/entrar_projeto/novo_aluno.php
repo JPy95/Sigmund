@@ -26,16 +26,8 @@
       </div>
       <!--Footer-->
       <div class="modal-footer">
-        <button onclick='setLocalStorage()' type="submit" class="btn-sigmund-style" style="background-color: #410987; box-shadow: none; margin: 0; width: 60%;">Ir para questionário</button>
+        <button id="btn-subimt" type="submit" class="btn-sigmund-style" style="background-color: #410987; box-shadow: none; margin: 0; width: 60%;">Ir para questionário</button>
       </div>
     </div>
   </div>
 </div>
-<script>
-  function setLocalStorage() {
-    localStorage.setItem('nomeAluno',document.getElementById('nome').value);
-    localStorage.setItem('email',document.getElementById('email').value);
-    localStorage.setItem('projeto',document.getElementById('projeto').value);
-    window.location.replace('view/quiz/quiz.php')
-  }
-</script>
