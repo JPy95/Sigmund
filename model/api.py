@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
+from flask_cors import CORS
 from datetime import datetime
 from sqlalchemy import create_engine
 from json import dumps
@@ -10,7 +11,9 @@ model = ml.SigmindMl()
 db_connect = create_engine('postgresql://sigmund:Unibh2020@db1-sigmund.cdrfdxumcxao.us-east-1.rds.amazonaws.com:5432/sigmund')
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
+@app.route("/")
 class Projects(Resource):
 
   conn,nameProject,date,idProjeto,qtdAlunos=None,None,None,None,None
@@ -34,12 +37,7 @@ class ProjectsId(Resource):
     if(self.check_project(id) == 0):
       result = dumps({'success':False})
     else:
-      conn = db_connect.connect()
-      query = conn.execute("select count(idAluno) - qtdAlunos as total_alunos from sigmundi.grupos a "+
-                          "inner join sigmundi.projetos b on b.idProjeto = a.idProjeto "+
-                          "where a.idProjeto = {}".format(id))
-      result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-      result = jsonify(result)
+      result = dumps({'success':True})
     return result
 
   def check_project(self, id):
@@ -50,8 +48,6 @@ class ProjectsId(Resource):
     query = conn.execute('select * from sigmundi.projetos where idProjeto = {}'.format(id))
     return query.cursor.rowcount 
   
-
-
 class Students(Resource):
 
   conn,nameStudent,email,idProjeto,profile = None,None,None,None,None
@@ -94,7 +90,7 @@ class Quiz(Resource):
     self.idaluno = request.json['idaluno']
 
   def post(self):
-    self.conn.execute('insert into sigmundi.questionarios values(DEFAULT,{0},{1})'.format(self.respostas,self.idaluno))
+    self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(self.idaluno,','.join(self.respostas)))
     return dumps({'success':True})
 
 class Groups(Resource):

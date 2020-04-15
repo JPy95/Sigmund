@@ -1,17 +1,5 @@
 (function() {
   var questions = [{
-    question: "Eu sou", //1
-    choices: ['Idealista, criativo e visionário',
-              'Divertido, espiritual e benéfico', 
-              'Confiável, meticuloso e previsível', 
-              'Focado, determinado e persistente'],
-  }, {
-    question: "Eu gosto de", //2
-    choices: ['Explorar novas rotas', 
-              'Conversar com os passageiros', 
-              'Planejar a viagem', 
-              'Ser piloto'],
-  }, {
     question: "Se você quiser se dar bem comigo", //3
     choices: ['Me dê liberdade ', 
               'Seja amigável, carinhoso e compreensivo', 
@@ -29,30 +17,6 @@
               'Estou com os outros  ', 
               'Determino as regras ', 
               'Estou me exercitando '],
-  }, {
-    question: "Eu penso que", //6
-    choices: ['É bom ser manso, mas andar com um porrete ', 
-              'Unidos venceremos, divididos perderemos ', 
-              'Um homem prevenido vale por dois ', 
-              'O ataque é melhor que a defesa '],
-  }, {
-    question: "Minha preocupação é", //7
-    choices: ['Gerar a ideia global ', 
-              'Fazer com que as pessoas gostem ', 
-              'Fazer com que funcione ', 
-              'Fazer com que aconteça '],
-  }, {
-    question: "Eu prefiro", //8
-    choices: ['Perguntas a respostas ', 
-              'Que todos tenham a chance de serem ouvidos ', 
-              'Ter todos os detalhes ', 
-              'Vantagens a meu favor '],
-  }, {
-    question: "Eu gosto de", //9
-    choices: ['Construir memórias ', 
-              'Tornar as pessoas confortáveis ', 
-              'Fazer sentido ', 
-              'Fazer progresso '],
   }, {
     question: "Eu gosto de chegar", //10
     choices: ['Em outro lugar ', 
@@ -83,83 +47,30 @@
               'Realizar uma abordagem natural ', 
               'Evitar surpresas ', 
               'Focalizar a meta '],
-  }
-  , {
-    question: "Eu gosto de mudanças se ", //15
-    choices: ['Me der mais liberdade e variedade ', 
-              'For divertido e puder ser compartilhado ', 
-              'Melhorar ou me der mais controle ', 
-              'Me der uma vantagem competitiva '],
-  }
-  , {
-    question: "Não existe nada de errado em", //16
-    choices: ['Mudar de ideia ', 
-              'Colocar os outros na frente ', 
-              'Ser consistente', 
-              'Se colocar na frente '],
-  }
-  , {
-    question: "Eu gosto de buscar conselhos de", //17
-    choices: ['Lugares, os mais estranhos ', 
-              'Anciões e conselheiros ', 
-              'Autoridades no assunto ', 
-              'Pessoas bem-sucedidas '],
-  }
-  , {
+  }, {
     question: "Meu lema é", //18
     choices: ['Fazer o que precisa ser feito ', 
               'Fazer junto com o grupo ', 
               'Fazer bem feito ', 
               'Simplesmente fazer '],
-  }
-  , {
-    question: "Eu gosto de", //19
-    choices: ['Complexidade, mesmo se confuso ', 
-              'Calor humano e animação ', 
-              'Ordem e sistematização ', 
-              'Coisas claras e simples '],
-  }
-  , {
-    question: "Tempo para mim é", //20
-    choices: ['Irrelevante ', 
-              'Um grande ciclo ', 
-              'Uma flecha que leva ao inevitável ', 
-              'Algo que detesto desperdiçar '],
-  }
-  , {
+  }, {
     question: "Se eu fosse bilionário", //21
     choices: ['Faria o que desse na cabeça ', 
               'Faria doações para muitas entidades ', 
               'Criaria uma poupança avantajada ', 
               'Me exibiria bastante para algumas pessoas '],
-  }
-  , {
+  }, {
     question: "Eu acredito que", //22
     choices: ['Bastam um navio e uma estrela para navegar ', 
               'A jornada é mais importante que o destino ', 
               'Um centavo economizado é um centavo ganho ', 
               'O destino é mais importante que a jornada '],
-  }
-  , {
+  }, {
     question: "Eu acredito também que", //23
     choices: ['Um sorriso ou uma careta é o mesmo para quem é cego ', 
               'O que vai, volta ', 
               'De grão em grão a galinha enche o papo ', 
               'Aquele que hesita está perdido '],
-  }
-  , {
-    question: "Eu acredito ainda que", //24
-    choices: ['De grão em grão a galinha enche o papo ', 
-              'Um sorriso ou uma careta é o mesmo para quem é cego ', 
-              'Aquele que hesita está perdido ', 
-              'O que vai, volta '],
-  }
-  , {
-    question: "Eu penso que", //25
-    choices: ['Não é fácil ficar encurralado ', 
-              'Duas cabeças pensam melhor do que uma ', 
-              ' É preferível olhar, antes de pular ', 
-              'Se você não tem condições de competir,não compita '],
   }];
   
   var questionCounter = 0; //Tracks question number
@@ -208,7 +119,7 @@
       id: 'question'
     });
     
-    var header = $('<div id="title"><h2>' + (questions[index].question) + '...</h2></div><div class="progress" style="height: 2px;"> <div class="progress-bar" role="progressbar" style="width: '+(index/25)*100+'%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    var header = $('<div id="title"><h2>' + (questions[index].question) + '...</h2></div><div class="progress" style="height: 2px;"> <div class="progress-bar" role="progressbar" style="width: '+(index/12)*100+'%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div>');
     qElement.append(header);
     
     var radioButtons = createRadios(index);

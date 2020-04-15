@@ -14,14 +14,17 @@
         <div class="form-group">
           <label for="nome">Qual o seu nome?</label>
           <input type="name" class="form-control w-75" id="nome" name='name' placeholder="Digite seu nome">
+          <p id="erroNome">Nome não pode ser nulo.</p>
         </div>
         <div class="form-group">
           <label for="email">E o seu e-mail?</label>
           <input type="email" class="form-control w-75" id="email" name='email' placeholder="Digite seu email">
+          <p id="erroEmail">E-mail não pode ser nulo.</p>
         </div>
         <div class="form-group">
           <label for="projeto">Qual o número do projeto que você irá participar?</label>
           <input type="number" class="form-control w-25" id="projeto" name='projeto'>
+          <p id="erroProjeto"></p>
         </div>
       </div>
       <!--Footer-->

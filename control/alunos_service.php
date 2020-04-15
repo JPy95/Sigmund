@@ -1,5 +1,6 @@
 <?php
-$url  = 'http://127.0.0.1:5002/students';
+$urlAlunos  = 'http://127.0.0.1:5002/students';
+$urlQuiz  = 'http://127.0.0.1:5002/quiz';
 $answers = explode(",", $_POST['answers']);
 
 $answers = array_count_values($answers);
@@ -15,13 +16,28 @@ if($maxAnswer == 1){
     $profile = 'Executor';
 }
 
-$dataAluno = json_encode(array('nameStudent' => $_POST['nomeAluno'],'email' => $_POST['email'], 'idProjeto' => $_POST['projeto'],'profile' => $profile));
-$ch = curl_init($url);
+$dataAluno = json_encode(array(
+    'nameStudent' => $_POST['nomeAluno'],
+    'email' => $_POST['email'], 
+    'idProjeto' => $_POST['projeto'],
+    'profile' => $profile
+));
+$ch = curl_init($urlAlunos);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $dataAluno);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
 $result = json_decode(curl_exec($ch),true)[0];
-echo $maxAnswer;
+
+$dataQuiz = json_encode(array(
+    'respostas' => explode(",", $_POST['answers']),
+    'idaluno'   => $result["idaluno"]
+));
+$ch = curl_init($urlQuiz);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $dataQuiz);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_exec($ch);
+
+echo($maxAnswer);
 ?>
 
