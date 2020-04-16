@@ -54,7 +54,7 @@ class ProjectsId(Resource):
   
 class Students(Resource):
 
-  conn,nameStudent,email,chaveProjeto,profile = None,None,None,None,None
+  conn,nameStudent,email,chaveProjeto,profile,ansewrs = None,None,None,None,None,None
   
   def __init__(self):
     self.conn = db_connect.connect()
@@ -62,6 +62,7 @@ class Students(Resource):
     self.email = request.json['email']
     self.chaveProjeto = request.json['chaveProjeto']
     self.perfil = request.json['profile']
+    self.ansewrs = request.json['ansewrs']
 
   def post(self):
     if(self.check_student(self.email) == 0):
@@ -79,18 +80,23 @@ class Students(Resource):
     return query.cursor.rowcount
 
   def get(self):
+    
     return self.getIdAluno()
 
   def getIdAluno(self):
     query = self.conn.execute("select idaluno from sigmundi.alunos where email = '{}' ".format(self.email))
     idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
     self.insertAlunoTableGrupos(idAluno[0]['idaluno'])
+    self.insertAnsewrsTableQuiz(idAluno[0]['idaluno'])
     return jsonify(idAluno)
 
   def insertAlunoTableGrupos(self,idAluno):
     query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
     idProjeto = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
     self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent,self.perfil)) 
+
+  def insertAnsewrsTableQuiz(self,idAluno):
+    self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(idAluno,','.join(self.ansewrs)))
 
 class Login(Resource):
 
@@ -141,20 +147,6 @@ class Login(Resource):
       check['success'] = True
     return check
 
-
-class Quiz(Resource):
-
-  conn,ansewrs,idaluno = None,None,None
-
-  def __init__(self):
-    self.conn = db_connect.connect()
-    self.ansewrs = request.json['ansewrs']
-    self.idaluno = request.json['idaluno']
-
-  def post(self):
-    self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(self.idaluno,','.join(self.ansewrs)))
-    return dumps({'success':True})
-
 class Groups(Resource):
   
   conn,idProjeto = None,None
@@ -195,7 +187,6 @@ api.add_resource(Projects, '/projects')
 api.add_resource(ProjectsId, '/projects/<chave>')
 api.add_resource(Students, '/students')
 api.add_resource(Login, '/login')
-api.add_resource(Quiz, '/quiz')
 api.add_resource(Groups, '/grupos')
 
 if __name__ == '__main__':
