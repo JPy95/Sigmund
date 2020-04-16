@@ -166,10 +166,10 @@
         }
       }else {
         var nomeAluno = localStorage.getItem('nomeAluno');
-        var email = localStorage.getItem('emailAluno');
-        var projeto = localStorage.getItem('projetoAluno');
+        var emailAluno = localStorage.getItem('emailAluno');
+        var chaveProjeto = localStorage.getItem('chaveProjeto');
         $.ajax({
-          data: 'answers='+selections+'&nomeAluno='+nomeAluno+'&email='+email+'&chaveProjeto='+projeto,
+          data: 'answers='+selections+'&nomeAluno='+nomeAluno+'&emailAluno='+emailAluno+'&chaveProjeto='+chaveProjeto,
           url: '../../control/alunos_service.php?',
           method: 'POST', // or GET
           success: function(result){

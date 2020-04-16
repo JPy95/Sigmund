@@ -18,7 +18,7 @@ if($maxAnswer == 1){
 
 $dataAluno = json_encode(array(
     'nameStudent' => $_POST['nomeAluno'],
-    'email' => $_POST['email'], 
+    'email' => $_POST['emailAluno'], 
     'chaveProjeto' => $_POST['chaveProjeto'],
     'profile' => $profile
 ));
@@ -29,7 +29,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $result = json_decode(curl_exec($ch),true)[0];
 
 $dataQuiz = json_encode(array(
-    'respostas' => explode(",", $_POST['answers']),
+    'ansewrs' => explode(",", $_POST['answers']),
     'idaluno'   => $result["idaluno"]
 ));
 $ch = curl_init($urlQuiz);

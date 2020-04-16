@@ -10,7 +10,8 @@ $chave = $chave.random_int(100000, 999999);
 
 $data = json_encode(array(
     'nameProject' => $_POST['projeto'],
-    'chave' => $chave
+    'chave' => $chave,
+    'qtdAlunos' => $_POST['alunos']
 ));
 
 curl_setopt($ch,CURLOPT_POSTFIELDS,$data);

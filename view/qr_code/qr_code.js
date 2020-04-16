@@ -19,7 +19,7 @@ function QrCode(){
   }
 
   this.checkAlunos = function(){
-    var totalAlunos = localStorage.getItem('alunos');
+    var totalAlunos = localStorage.getItem('alunosProjeto');
     var _this = this;
     setInterval(function(){
       $.ajax({

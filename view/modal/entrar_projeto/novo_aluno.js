@@ -20,7 +20,7 @@ function ValidarAluno() {
   this.setLocalStorage = function() {
     localStorage.setItem('nomeAluno',this.nomeAluno.value);
     localStorage.setItem('emailAluno',this.email.value);
-    localStorage.setItem('projetoAluno',this.chaveProjeto.value);
+    localStorage.setItem('chaveProjeto',this.chaveProjeto.value);
     window.location.replace('view/quiz/quiz.php');
   }
 
@@ -56,19 +56,6 @@ function ValidarAluno() {
     }
   }
 
-  this.checkAluno = function(){
-    const url = 'http://127.0.0.1:5002/students/';
-    var request = url+this.email.value.value;
-    var _this = this;
-    return $.ajax({
-            url: request,
-            method: 'GET', // or GET
-            success: function(result){
-              result = JSON.parse(result);
-            }
-          });
-  }
-
   this.validacaoForm = function(){
     const newLocal = 'http://127.0.0.1:5002/projects/';
     var request = newLocal+this.chaveProjeto.value;
@@ -78,27 +65,22 @@ function ValidarAluno() {
       this.validacaoNome();
       this.validacaoEmail();
       this.validacaoProjeto();
-    } else if (this.checkAluno()) {
-      this.alert[0].style.display = 'block'
-      this.email.style.borderColor = 'red';
-      this.erroEmail.style.display = 'block';
-      this.erroEmail.innerHTML = 'Informe outro email.';
     } else {
+      const request = 'http://127.0.0.1:5002/login';
+      var _this = this;
       $.ajax({
+        data: 'email='+_this.email.value+'&chave='+_this.chaveProjeto.value,
         url: request,
-        method: 'GET', // or GET
+        method: 'GET',
         success: function(result){
-          var req = JSON.parse(result);
-          console.log(req[1]['success']);
-          if(req[1]['success']){
-            //_this.setLocalStorage();
+          if(result['success']){
+            _this.setLocalStorage();
           } else {
-            _this.projeto.style.borderColor = 'red';
-            _this.erroProjeto.innerHTML = 'Este projeto não exite.';
-            _this.erroProjeto.style.display = 'block';
+            _this.alert[0].style.display = 'block'
+            _this.alert[0].innerHTML = result['warning'];
           }
         }
-      });
+      })
     }
   }
 }

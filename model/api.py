@@ -21,10 +21,11 @@ class Projects(Resource):
     self.conn = db_connect.connect()
     self.nameProject = request.json['nameProject']
     self.chave = request.json['chave']
+    self.qtdAlunos = request.json['qtdAlunos']
     self.date = str(datetime.now())[:str(datetime.now()).find('.')]
 
   def post(self):
-    self.conn.execute("insert into sigmundi.projetos values('{0}','{1}',DEFAULT,'{2}')".format(self.date,self.chave,self.nameProject))
+    self.conn.execute("insert into sigmundi.projetos values('{0}','{1}',DEFAULT,'{2}',{3})".format(self.date,self.chave,self.nameProject,self.qtdAlunos))
     return self.get()
 
   def get(self):
@@ -38,7 +39,7 @@ class ProjectsId(Resource):
       result = {'success':False}
     else:
       conn = db_connect.connect()
-      query = conn.execute("select count(idaluno) as qtdAlunos from sigmundi.grupos a inner join sigmundi.projetos b on b.idprojeto = a.idprojeto where b.chave =  '{}'".format(chave))
+      query = conn.execute("select count(idaluno) as qtdAlunos from sigmundi.grupos a inner join sigmundi.projetos b on b.idprojeto = a.idprojeto where b.chave = '{}'".format(chave))
       result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
       result.append({'success':True})
     return dumps(result)
@@ -78,24 +79,68 @@ class Students(Resource):
     return query.cursor.rowcount
 
   def get(self):
+    return self.getIdAluno()
+
+  def getIdAluno(self):
     query = self.conn.execute("select idaluno from sigmundi.alunos where email = '{}' ".format(self.email))
     idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
-    idProjeto = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno[0]['idaluno'],self.nameStudent,self.perfil))
+    self.insertAlunoTableGrupos(idAluno[0]['idaluno'])
     return jsonify(idAluno)
 
-class StudentsEmail(Resource):
-  def get(self,email):
-    conn = db_connect.connect()
-    result = conn.execute("select * from sigmundi.grupos where idaluno in(select idaluno from sigmundi.alunos where email = '{}')".format(email))
+  def insertAlunoTableGrupos(self,idAluno):
+    query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
+    idProjeto = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent,self.perfil)) 
 
-    if(result.cursor.rowcount != 0):
-      result = dumps({'success':True})
+class Login(Resource):
+
+  conn, email, chave = None,None,None
+
+  def __init__(self):
+    self.conn = db_connect.connect()
+    self.email =  request.args.get('email')
+    self.chave = request.args.get('chave')
+
+  def get(self):
+    if(self.checkGruop == 0):
+      resp = {'warning': 'Este projeto não existe.'}
+      resp['success'] = False
     else:
-      result = dumps({'success':False})
+      resp = self.checkAluno()
+    return resp
 
-    return result
+  def checkGruop(self):
+    query = self.conn.execute("select * from sigmundi.projetos where chave = '{}'".format(self.chave))
+    result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+    return len(result)
+
+  def checkAluno(self):
+    query = self.conn.execute('''select 
+                                    a.chave,
+                                    qtdAlunos,
+                                    b.nomealuno,
+                                    b.perfilaluno,
+                                    c.email
+                                  from sigmundi.projetos a
+                                  inner join sigmundi.grupos b on b.idprojeto = a.idprojeto
+                                  inner join sigmundi.alunos c on c.idaluno = b.idaluno
+                                  where chave = '{}' '''.format(self.chave))
+    result = pd.DataFrame([dict(zip(tuple(query.keys()), i)) for i in query.cursor])
+
+    if(len(result)==0):
+      check = {'warning': False}
+      check['success'] = True
+    elif(result['qtdalunos'].unique()[0] == len(result)):
+      check = {'warning': 'Este projeto atingiu a quantidade máxima de alunos.'}
+      check['success'] = False
+    elif(len(result[result['email']==self.email]) > 0):
+      check = {'warning': 'Você já está participando deste projeto.'}
+      check['success'] = False
+    else:
+      check = {'warning': False}
+      check['success'] = True
+    return check
+
 
 class Quiz(Resource):
 
@@ -103,11 +148,11 @@ class Quiz(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.respostas = request.json['respostas']
+    self.ansewrs = request.json['ansewrs']
     self.idaluno = request.json['idaluno']
 
   def post(self):
-    self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(self.idaluno,','.join(self.respostas)))
+    self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(self.idaluno,','.join(self.ansewrs)))
     return dumps({'success':True})
 
 class Groups(Resource):
@@ -149,7 +194,7 @@ class Groups(Resource):
 api.add_resource(Projects, '/projects')
 api.add_resource(ProjectsId, '/projects/<chave>')
 api.add_resource(Students, '/students')
-api.add_resource(StudentsEmail, '/students/<email>')
+api.add_resource(Login, '/login')
 api.add_resource(Quiz, '/quiz')
 api.add_resource(Groups, '/grupos')
 
