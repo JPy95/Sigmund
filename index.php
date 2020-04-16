@@ -53,7 +53,7 @@
     <div id="mobile" class='btn-index'>
       <a data-toggle="modal" data-target="#novoProjeto"><button class="btn-sigmund-style"style="background-color: #930394;">Criar Projeto</button></a>
       <a data-toggle="modal" data-target="#entrarProjeto"><button class="btn-sigmund-style"style="background-color: #410987;">Entrar em Projeto</button></a>
-      <a href="view/quiz/quiz.html"><button class='btn-sigmund-style '>Responder Questionário</button></a>
+      <a href="view/quiz/quiz.php"><button class='btn-sigmund-style '>Responder Questionário</button></a>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -62,5 +62,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script type='text/javascript' src='view/modal/entrar_projeto/novo_aluno.js'></script>
+    <script type='text/javascript' src='view/modal/novo_projeto/novo_projeto.js'></script>
   </body>
 </html>

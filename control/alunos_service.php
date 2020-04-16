@@ -19,7 +19,7 @@ if($maxAnswer == 1){
 $dataAluno = json_encode(array(
     'nameStudent' => $_POST['nomeAluno'],
     'email' => $_POST['email'], 
-    'idProjeto' => $_POST['projeto'],
+    'chaveProjeto' => $_POST['chaveProjeto'],
     'profile' => $profile
 ));
 $ch = curl_init($urlAlunos);

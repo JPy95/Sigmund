@@ -16,47 +16,50 @@ CORS(app)
 @app.route("/")
 class Projects(Resource):
 
-  conn,nameProject,date,idProjeto,qtdAlunos=None,None,None,None,None
+  conn,nameProject,date,idProjeto,qtdAlunos,chave=None,None,None,None,None,None
   def __init__(self):
     self.conn = db_connect.connect()
     self.nameProject = request.json['nameProject']
-    self.qtdAlunos = request.json['qtdAlunos']
+    self.chave = request.json['chave']
     self.date = str(datetime.now())[:str(datetime.now()).find('.')]
 
   def post(self):
-    self.conn.execute("insert into sigmundi.projetos values('{0}',DEFAULT, '{1}')".format(self.date,self.nameProject))
+    self.conn.execute("insert into sigmundi.projetos values('{0}','{1}',DEFAULT,'{2}')".format(self.date,self.chave,self.nameProject))
     return self.get()
 
   def get(self):
-    query = self.conn.execute("select * from sigmundi.projetos where nomeProjeto = '{0}' and date_trunc('second',datainclusao) = '{1}' ".format(self.nameProject,self.date))
+    query = self.conn.execute("select chave from sigmundi.projetos where nomeProjeto = '{0}' and date_trunc('second',datainclusao) = '{1}' ".format(self.nameProject,self.date))
     result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
     return jsonify(result)
 
 class ProjectsId(Resource):
-  def get(self,id):
-    if(self.check_project(id) == 0):
-      result = dumps({'success':False})
+  def get(self,chave):
+    if(self.check_project(chave) == 0):
+      result = {'success':False}
     else:
-      result = dumps({'success':True})
-    return result
+      conn = db_connect.connect()
+      query = conn.execute("select count(idaluno) as qtdAlunos from sigmundi.grupos a inner join sigmundi.projetos b on b.idprojeto = a.idprojeto where b.chave =  '{}'".format(chave))
+      result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+      result.append({'success':True})
+    return dumps(result)
 
-  def check_project(self, id):
+  def check_project(self, chave):
     '''
       Verifica se o projeto existe
     '''
     conn = db_connect.connect()
-    query = conn.execute('select * from sigmundi.projetos where idProjeto = {}'.format(id))
+    query = conn.execute("select * from sigmundi.projetos where chave = '{}'".format(chave))
     return query.cursor.rowcount 
   
 class Students(Resource):
 
-  conn,nameStudent,email,idProjeto,profile = None,None,None,None,None
+  conn,nameStudent,email,chaveProjeto,profile = None,None,None,None,None
   
   def __init__(self):
     self.conn = db_connect.connect()
     self.nameStudent = request.json['nameStudent']
     self.email = request.json['email']
-    self.idProjeto = request.json['idProjeto']
+    self.chaveProjeto = request.json['chaveProjeto']
     self.perfil = request.json['profile']
 
   def post(self):
@@ -75,10 +78,24 @@ class Students(Resource):
     return query.cursor.rowcount
 
   def get(self):
-    query = self.conn.execute("select idaluno from sigmundi.alunos where nomeAluno = '{0}' and email = '{1}' ".format(self.nameStudent,self.email))
-    result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(self.idProjeto, result[0]['idaluno'],self.nameStudent,self.perfil))
-    return jsonify(result)
+    query = self.conn.execute("select idaluno from sigmundi.alunos where email = '{}' ".format(self.email))
+    idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+    query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
+    idProjeto = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno[0]['idaluno'],self.nameStudent,self.perfil))
+    return jsonify(idAluno)
+
+class StudentsEmail(Resource):
+  def get(self,email):
+    conn = db_connect.connect()
+    result = conn.execute("select * from sigmundi.grupos where idaluno in(select idaluno from sigmundi.alunos where email = '{}')".format(email))
+
+    if(result.cursor.rowcount != 0):
+      result = dumps({'success':True})
+    else:
+      result = dumps({'success':False})
+
+    return result
 
 class Quiz(Resource):
 
@@ -130,8 +147,9 @@ class Groups(Resource):
     return dumps({'success':True})
 
 api.add_resource(Projects, '/projects')
-api.add_resource(ProjectsId, '/projects/<id>')
+api.add_resource(ProjectsId, '/projects/<chave>')
 api.add_resource(Students, '/students')
+api.add_resource(StudentsEmail, '/students/<email>')
 api.add_resource(Quiz, '/quiz')
 api.add_resource(Groups, '/grupos')
 

@@ -10,22 +10,22 @@
         </button>
       </div>
       <!--Body-->
-      <form action="control/projeto_service.php" method="post">
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="nome">Qual é o nome do Projeto?</label>
-            <input type="name" class="form-control" id="nome" name='name' placeholder="Nome do projeto">
-          </div>
-          <div class="form-group">
-            <label for="alunos">E qual a quantidade de alunos?</label>
-            <input type="number" class="form-control w-50" id="alunos" name='alunos' min='4'>
-          </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="nome">Qual é o nome do Projeto?</label>
+          <input id="newProjeto" type="name" class="form-control" id="nome" name='name' placeholder="Nome do projeto">
+          <p id="erroNewProjeto">Nome do Projeto não pode ser nulo.</p>
         </div>
-        <!--Footer-->
-        <div class="modal-footer">
-          <button type="submit" class="btn-sigmund-style" style="background-color: #930394; box-shadow: none; margin: 0; width: 60%;">Criar Projeto</button>
+        <div class="form-group">
+          <label for="alunos">E qual a quantidade de alunos?</label>
+          <input id="alunos" type="number" class="form-control w-50" id="alunos" name='alunos' min='4'>
+          <p id="erroAlunos">Quantidade de Alunos não pode ser nulo.</p>
         </div>
-      </form>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button id="btn-subimt-projeto" type="submit" class="btn-sigmund-style" style="background-color: #930394; box-shadow: none; margin: 0; width: 60%;">Criar Projeto</button>
+      </div>
     </div>
   </div>
 </div>

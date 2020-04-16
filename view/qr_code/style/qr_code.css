@@ -37,6 +37,10 @@ h3{
     text-align: center;
 }
 
+h2{
+    display: none;
+}
+
 span{
     font-size: 22px;
 }

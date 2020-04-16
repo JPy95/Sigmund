@@ -60,10 +60,18 @@ h5{
   align-self: baseline;
 }
 
-#erroNome,#erroEmail,#erroProjeto{
+#erroNome,
+#erroEmail,
+#erroProjeto,
+#erroAlunos,
+#erroNewProjeto{
   display: none;
   color: red;
   font-size: 13px;
+}
+
+.alert{
+  display: none;
 }
 
 @media only screen and (max-width: 600px){
