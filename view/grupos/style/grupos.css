@@ -1,0 +1,50 @@
+.title{
+    border-bottom: 1px solid;
+}
+
+h3{
+    text-shadow: 3px 3px 0px black;
+}
+
+h2{
+    display: none;
+}
+
+.painel_grupo{
+    display: flex;
+}
+
+table{
+    background: white;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 4px 4px 5px 0px black;
+    margin-top: 5px;
+}
+
+th{
+    width: 150px;
+    border-bottom: 1px solid;
+    background-color: #38094a;
+    color: white;
+    height: 45px;
+    text-align: center;
+}
+
+td{
+    height: 30px;
+    font-weight: 700;
+    text-align: center;
+}
+
+tr:nth-child(2n+1) {
+    background: #d8d6d6;
+}
+
+span{
+    font-weight: 600;
+}
+
+.tables-group{
+    display: flex;
+}
