@@ -24,7 +24,7 @@
           <div id="qrCodeMobile" class=" col-6">
             <?php
               $aux = 'php/qr_img.php?';
-              $aux .= 'd=http://localhost/Sigmund/view/quiz/quiz.html?idProjeto=12&';
+              $aux .= 'd=http://sigmund2.dx.am/index.php?idProjeto='.$_GET['projeto'].'&';
               $aux .= 'e=H&';
               $aux .= 's=10&';
               $aux .= 't=J';
