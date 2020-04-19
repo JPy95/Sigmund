@@ -10,7 +10,7 @@
       <div id="qrCodeWeb" class=" col-6">
         <?php
           $aux = 'php/qr_img.php?';
-          $aux .= 'd=http://sigmund2.dx.am?idProjeto='.$_GET['projeto'].'&';
+          $aux .= 'd=http://projetosacademico.com.br/?idProjeto='.$_GET['projeto'].'&';
           $aux .= 'e=H&';
           $aux .= 's=10&';
           $aux .= 't=J';
