@@ -5,7 +5,7 @@
       <!--Header-->
       <div class="modal-header">
         <h5 class="modal-title">Olá Aluno</h5>
-        <button type="button" class="close" data-dismiss="modal">
+        <button id="close" type="button" class="close" data-dismiss="modal">
             <span>&times;</span>
         </button>
       </div>

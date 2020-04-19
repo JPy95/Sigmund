@@ -17,8 +17,7 @@ $data = json_encode(array(
 curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_exec($ch);
 
-$result = json_decode(curl_exec($ch),true)[0];
-
-echo $result['chave'];
+echo $chave;
 ?>

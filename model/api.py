@@ -5,13 +5,14 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from json import dumps
 import pandas as pd
-import ml #Algoritmo de Clusterização
+import ml #Algoritmo de Clusterizacao
 
 model = ml.SigmindMl()
 db_connect = create_engine('postgresql://sigmund:Unibh2020@db1-sigmund.cdrfdxumcxao.us-east-1.rds.amazonaws.com:5432/sigmund')
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
+
 
 @app.route("/")
 class Projects(Resource):
@@ -73,7 +74,7 @@ class Students(Resource):
 
   def check_student(self,email):
     '''
-      Verifica se o aluno já está cadastrado no banco;
+      Verifica se o aluno ja esta cadastrado no banco;
       returno 0 ou retorno > 0;
     '''
     query = self.conn.execute("select * from sigmundi.alunos where email = '{0}' ".format(self.email))
@@ -109,7 +110,7 @@ class Login(Resource):
 
   def get(self):
     if(self.checkGruop == 0):
-      resp = {'warning': 'Este projeto não existe.'}
+      resp = {'warning': 'Este projeto nao existe.'}
       resp['success'] = False
     else:
       resp = self.checkAluno()
@@ -166,7 +167,7 @@ class Groups(Resource):
 
   def buildPuts(self,base):
     '''
-      Função elabora query de atualização dos dados na tabela Grupos com base a quantidade de registros na base;
+      Funcao elabora query de atualizacao dos dados na tabela Grupos com base a quantidade de registros na base;
     '''
     
     query = ''
@@ -176,7 +177,7 @@ class Groups(Resource):
   
   def generateGroup(self,base):
     '''
-      Função envia base para ordenação de grupos;
+      Funcao envia base para ordenaccao de grupos;
     '''
     
     result = model.fit(base)
@@ -190,4 +191,4 @@ api.add_resource(Login, '/login')
 api.add_resource(Groups, '/grupos')
 
 if __name__ == '__main__':
-    app.run(port='5002')
+    app.run()
