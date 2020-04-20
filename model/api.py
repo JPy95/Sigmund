@@ -62,10 +62,10 @@ class Students(Resource):
   
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameStudent = request.json['nameStudent']
-    self.email = request.json['email']
+    self.nameStudent = request.json['nameStudent'].encode('utf-8')
+    self.email = request.json['email'].encode('utf-8')
     self.chaveProjeto = request.json['chaveProjeto']
-    self.perfil = request.json['profile']
+    self.perfil = request.json['profile'].encode('utf-8')
     self.ansewrs = request.json['ansewrs']
 
   def post(self):
@@ -97,7 +97,7 @@ class Students(Resource):
   def insertAlunoTableGrupos(self,idAluno):
     query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
     idProjeto = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent.encode('utf-8'),self.perfil)) 
+    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent,self.perfil)) 
 
   def insertAnsewrsTableQuiz(self,idAluno):
     self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(idAluno,','.join(self.ansewrs)))
