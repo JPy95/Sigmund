@@ -1,5 +1,5 @@
 <?php
-$url  = 'http://127.0.0.1:5000/projects';
+$url  = 'http://projetosacademico.com.br:5000/projects';
 $ch   = curl_init($url);
 
 $text = 'sigmund';
