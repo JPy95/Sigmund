@@ -191,4 +191,4 @@ api.add_resource(Login, '/login')
 api.add_resource(Groups, '/grupos')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
