@@ -63,13 +63,5 @@
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script type='text/javascript' src='view/modal/entrar_projeto/novo_aluno.js'></script>
     <script type='text/javascript' src='view/modal/novo_projeto/novo_projeto.js'></script>
-    <script type="text/javascript">
-      if(window.location.href.indexOf('?') >= 0){
-        document.getElementById('entrarProjeto').classList.add('show')
-        document.getElementById('entrarProjeto').style.display = 'block'
-        document.getElementById('close').addEventListener('click',function(){ document.getElementById('entrarProjeto').style.display = 'none' })
-        document.getElementById('chaveProjeto').value = window.location.search.split('=')[1]
-      }
-    </script>
   </body>
 </html>

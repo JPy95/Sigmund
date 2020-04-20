@@ -57,10 +57,6 @@ function ValidarAluno() {
   }
 
   this.validacaoForm = function(){
-    const newLocal = 'http://127.0.0.1:5000/projects/';
-    var request = newLocal+this.chaveProjeto.value;
-    var _this = this;
-
     if(this.nomeAluno.value == "" || this.email.value == "" || this.chaveProjeto.value == ""){
       this.validacaoNome();
       this.validacaoEmail();
