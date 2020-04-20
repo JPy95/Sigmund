@@ -3,7 +3,7 @@ function QrCode(){
   this.init = function(){
     this.projeto = document.getElementsByTagName('h3')[0];
     this.alunos = document.getElementById('aluno');
-    this.url = 'http://127.0.0.1:5002/projects/'+localStorage.getItem('chave');
+    this.url = 'http://projetosacademico.com.br:5000/projects/'+localStorage.getItem('chave');
   }
 
   this.bind = function(){
@@ -39,7 +39,7 @@ function QrCode(){
           } 
         }
       });
-    },10000)
+    },5000)
   }
 }
 
