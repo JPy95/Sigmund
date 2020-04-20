@@ -62,11 +62,10 @@ function ValidarAluno() {
       this.validacaoEmail();
       this.validacaoProjeto();
     } else {
-      const request = 'http://127.0.0.1:5000/login';
       var _this = this;
       $.ajax({
         data: 'email='+_this.email.value+'&chave='+_this.chaveProjeto.value,
-        url: request,
+        url: 'http://127.0.0.1:5000/login',
         method: 'GET',
         success: function(result){
           if(result['success']){
