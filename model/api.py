@@ -140,7 +140,7 @@ class Login(Resource):
       check = {'warning': False}
       check['success'] = True
     elif(result['qtdalunos'].unique()[0] == len(result)):
-      check = {'warning': 'Este projeto atingiu a quantidade maxima de alunos.'}
+      check = {'warning': 'Este projeto atingiu a quantidade máxima de alunos.'}
       check['success'] = False
     elif(len(result[result['email']==self.email]) > 0):
       check = {'warning': 'Voce ja esta participando deste projeto.'}
