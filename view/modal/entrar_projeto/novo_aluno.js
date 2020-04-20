@@ -57,7 +57,7 @@ function ValidarAluno() {
   }
 
   this.validacaoForm = function(){
-    const newLocal = 'http://127.0.0.1:5002/projects/';
+    const newLocal = 'http://127.0.0.1:5000/projects/';
     var request = newLocal+this.chaveProjeto.value;
     var _this = this;
 
@@ -66,7 +66,7 @@ function ValidarAluno() {
       this.validacaoEmail();
       this.validacaoProjeto();
     } else {
-      const request = 'http://127.0.0.1:5002/login';
+      const request = 'http://127.0.0.1:5000/login';
       var _this = this;
       $.ajax({
         data: 'email='+_this.email.value+'&chave='+_this.chaveProjeto.value,
@@ -87,4 +87,12 @@ function ValidarAluno() {
 
 var validarAluno = new ValidarAluno();
 validarAluno.init();
-validarAluno.bind();
+if(window.location.href.indexOf('?') >= 0){
+  validarAluno.bind();
+  document.getElementById('entrarProjeto').classList.add('show')
+  document.getElementById('entrarProjeto').style.display = 'block'
+  document.getElementById('close').addEventListener('click',function(){ document.getElementById('entrarProjeto').style.display = 'none' })
+  document.getElementById('chaveProjeto').value = window.location.search.split('=')[1]
+} else {
+  validarAluno.bind();
+}

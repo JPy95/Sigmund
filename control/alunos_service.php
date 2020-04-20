@@ -1,5 +1,5 @@
 <?php
-$urlAlunos  = 'http://127.0.0.1:5002/students';
+$urlAlunos  = 'http://127.0.0.1:5000/students';
 
 $answers = explode(",", $_POST['answers']);
 $answers = array_count_values($answers);
