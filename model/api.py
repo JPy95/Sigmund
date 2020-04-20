@@ -23,7 +23,7 @@ class Projects(Resource):
   conn,nameProject,date,idProjeto,qtdAlunos,chave=None,None,None,None,None,None
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameProject = request.json['nameProject']
+    self.nameProject = request.json['nameProject'].encode('utf-8')
     self.chave = request.json['chave']
     self.qtdAlunos = request.json['qtdAlunos']
     self.date = str(datetime.now())[:str(datetime.now()).find('.')]
