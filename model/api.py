@@ -9,8 +9,6 @@ from sqlalchemy import create_engine
 from json import dumps
 import pandas as pd
 import ml #Algoritmo de Clusterizacao
-import sys
-sys.setdefaultencoding('UTF8')
 
 model = ml.SigmindMl()
 db_connect = create_engine('postgresql://sigmund:Unibh2020@db1-sigmund.cdrfdxumcxao.us-east-1.rds.amazonaws.com:5432/sigmund')
@@ -99,7 +97,7 @@ class Students(Resource):
   def insertAlunoTableGrupos(self,idAluno):
     query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
     idProjeto = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent,self.perfil)) 
+    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent.encode('utf-8'),self.perfil)) 
 
   def insertAnsewrsTableQuiz(self,idAluno):
     self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(idAluno,','.join(self.ansewrs)))
@@ -115,7 +113,7 @@ class Login(Resource):
 
   def get(self):
     if(self.checkGruop == 0):
-      resp = {'warning': 'Este projeto nao existe.'}
+      resp = {'warning': 'Este projeto não existe.'}
       resp['success'] = False
     else:
       resp = self.checkAluno()
@@ -146,7 +144,7 @@ class Login(Resource):
       check = {'warning': 'Este projeto atingiu a quantidade máxima de alunos.'}
       check['success'] = False
     elif(len(result[result['email']==self.email]) > 0):
-      check = {'warning': 'Voce ja esta participando deste projeto.'}
+      check = {'warning': 'Você já esta participando deste projeto.'}
       check['success'] = False
     else:
       check = {'warning': False}
