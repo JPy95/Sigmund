@@ -14,30 +14,12 @@
     <div class="mb-3 mr-4">
       <span >Grupo 2</span>
       <table>
-        <tr>
-          <th class="th-squad">Nome</th>
-          <th class="th-squad">Perfil</th>
-        </tr>
-        <tr>
-          <td class="td-squad">João Pedro</td>
-          <td class="td-squad">Executor</td>
-        </tr>
-        <tr>
-          <td class="td-squad">Cleiton Silva</td>
-          <td class="td-squad">Planejador</td>
-        </tr>
-        <tr>
-          <td class="td-squad">Ricarte Elias</td>
-          <td class="td-squad">Executor</td>
-        </tr>
-        <tr>
-          <td class="td-squad">Victor Boroni</td>
-          <td class="td-squad">Comunicador</td>
-        </tr>
-        <tr>
-          <td class="td-squad">Higor Barbosa</td>
-          <td class="td-squad">Analista</td>
-        </tr>
+        <tr><th class="th-squad">Nome</th><th class="th-squad">Perfil</th></tr>
+        <tr><td class="td-squad">João Pedro</td><td class="td-squad">Executor</td></tr>
+        <tr><td class="td-squad">Cleiton Silva</td><td class="td-squad">Planejador</td></tr>
+        <tr><td class="td-squad">Ricarte Elias</td><td class="td-squad">Executor</td></tr>
+        <tr><td class="td-squad">Victor Boroni</td><td class="td-squad">Comunicador</td></tr>
+        <tr><td class="td-squad">Higor Barbosa</td><td class="td-squad">Analista</td></tr>
       </table>
     </div>
     <div class="mb-3 mr-4">
