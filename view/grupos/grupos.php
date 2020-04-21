@@ -12,21 +12,15 @@
       <div class="title mb-3">
         <h3>Nome do Projeto</h3>
       </div>
-      <div class="painel_grupo col-12">
-        <div class='col-6'>
-          <div class="group-squad mb-5">
-            <?php include_once('../grupos/componentes/tablesGroups.php')?>
-          </div>
-        </div>
-        <div class="col-6">
-          <div>
-            <h5>Perfil Comportamental da Turma</h5>
-            <div class="pieGraph">
-              <canvas class="pie"></canvas>
-              <?php include_once('../grupos/componentes/pieGraph.php')?>
-            </div>
-          </div>
-        </div>
+      <div class="painel_grupo container col-11">
+        <div class="group-squad"></div>
       </div>
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+    <script type='text/javascript' src='componentes/tablesGroups.js'></script>
   </body>
 </html>

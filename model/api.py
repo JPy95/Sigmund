@@ -84,15 +84,11 @@ class Students(Resource):
     return query.cursor.rowcount
 
   def get(self):
-    
-    return self.getIdAluno()
-
-  def getIdAluno(self):
     query = self.conn.execute("select idaluno from sigmundi.alunos where email = '{}' ".format(self.email))
     idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
     self.insertAlunoTableGrupos(idAluno[0]['idaluno'])
     self.insertAnsewrsTableQuiz(idAluno[0]['idaluno'])
-    return jsonify(idAluno)
+    return jsonify(idAluno)    
 
   def insertAlunoTableGrupos(self,idAluno):
     query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
@@ -112,7 +108,7 @@ class Login(Resource):
     self.chave = request.args.get('chave')
 
   def get(self):
-    if(self.checkGruop == 0):
+    if(self.checkGruop() == 0):
       resp = {'warning': 'Este projeto não existe.'}
       resp['success'] = False
     else:
