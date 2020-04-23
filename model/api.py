@@ -20,7 +20,7 @@ class Projects(Resource):
   conn,nameProject,date,idProjeto,qtdAlunos,chave=None,None,None,None,None,None
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameProject = request.json['nameProject'].encode('utf-8')
+    self.nameProject = str(request.json['nameProject']).encode('utf-8')
     self.chave = request.json['chave']
     self.qtdAlunos = request.json['qtdAlunos']
     self.date = str(datetime.now())[:str(datetime.now()).find('.')]
@@ -59,10 +59,10 @@ class Students(Resource):
   
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameStudent = request.json['nameStudent'].encode('utf-8')
-    self.email = request.json['email'].encode('utf-8')
+    self.nameStudent = str(request.json['nameStudent']).encode('utf-8')
+    self.email = str(request.json['email']).encode('utf-8')
     self.chaveProjeto = request.json['chaveProjeto']
-    self.perfil = request.json['profile'].encode('utf-8')
+    self.perfil = str(request.json['profile']).encode('utf-8')
     self.ansewrs = request.json['ansewrs']
 
   def post(self):
