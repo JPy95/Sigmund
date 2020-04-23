@@ -149,11 +149,11 @@ class Login(Resource):
 
 class Groups(Resource):
   
-  conn,idProjeto = None,None
+  conn,chave = None,None
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.chave = request.args.get['chave'].encode('utf-8')
+    self.chave = request.args.get['chave']
 
   def get(self):
     #Busca questionarios
