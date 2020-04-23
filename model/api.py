@@ -153,7 +153,7 @@ class Groups(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.chave = request.args.get['chaveProjeto']
+    self.chave = request.args.get['chave']
 
   def get(self):
     #Busca questionarios
