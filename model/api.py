@@ -153,13 +153,13 @@ class Groups(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.chave = request.json['chave'].encode('utf-8')
+    self.chave = request.args.get['chave'].encode('utf-8')
 
   def get(self):
     #Busca questionarios
     query = '''
       select 
-        * 
+        a.* 
       from sigmundi.questionarios a
       inner join sigmundi.grupos b on b.idaluno = a.idaluno
       inner join sigmundi.projetos c on c.idprojeto = b.idprojeto
@@ -169,7 +169,6 @@ class Groups(Resource):
     #salva base de questionarios em DataFrame
     base = pd.DataFrame([dict(zip(tuple(exect.keys()), i)) for i in exect.cursor])
     return self.generateGroup(base)
-
 
   def refreshDataBase(self,base):
     '''
