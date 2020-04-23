@@ -153,35 +153,85 @@ class Groups(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.idProjeto = request.json['idProjeto']
+    self.chave = request.json['chave'].encode('utf-8')
 
   def get(self):
     #Busca questionarios
-    query = '''select a.* from sigmundi.questionarios a inner join sigmundi.grupos b on b.idaluno = a.idaluno where b.idprojeto = {}'''.format(self.idProjeto)
+    query = '''
+      select 
+        * 
+      from sigmundi.questionarios a
+      inner join sigmundi.grupos b on b.idaluno = a.idaluno
+      inner join sigmundi.projetos c on c.idprojeto = b.idprojeto
+      where c.chave = '{}'
+    '''.format(self.chave)
     exect = self.conn.execute(query)
-
     #salva base de questionarios em DataFrame
     base = pd.DataFrame([dict(zip(tuple(exect.keys()), i)) for i in exect.cursor])
     return self.generateGroup(base)
 
-  def buildPuts(self,base):
+
+  def refreshDataBase(self,base):
     '''
-      Funcao elabora query de atualizacao dos dados na tabela Grupos com base a quantidade de registros na base;
+      Função atualiza base com resultados do ML e retorna base atualizada.
     '''
     
     query = ''
     for i in range(0,len(base)):
       query+='update sigmundi.grupos set num_grupo = '+str(base['grupos'][i])+' where idprojeto = '+str(self.idProjeto)+' and idaluno = '+str(base['idaluno'][i])+';'
-    return query
+    
+    self.conn.execute(query)
+
+    query = '''
+            select 
+              a.nomeprojeto,
+              b.num_grupo,
+              c.nomealuno,
+              b.perfilaluno 
+            from sigmundi.projetos a
+            inner join sigmundi.grupos b on b.idprojeto = a.idprojeto
+            inner join sigmundi.alunos c on c.idaluno = b.idaluno
+            where chave = '{}' order by 2 '''.format(self.chave)
+    return self.conn.execute(query)
   
   def generateGroup(self,base):
     '''
-      Funcao envia base para ordenaccao de grupos;
+      Funcao gera grupos utilizando o algoritmo de ML K-means.
+      Retorna: Json com grupos
     '''
-    
+    # ML Gera Grupos
     result = model.fit(base)
-    self.conn.execute(self.buildPuts(result))
-    return dumps({'success':True})
+    base = self.refreshDataBase(result)
+
+    ##### Criação do JSON #####
+    base = [dict(zip(tuple(exect.keys()), i)) for i in exect.cursor]
+    json = {}
+    
+    #Armazena lista com range de grupos, exemplo: [1,2,3,4,5]
+    numGrupos = np.unique(np.array(list(map(lambda x : x['num_grupo'], base))))
+    
+    ### Titulo do Projeto ###
+    json['nomeProjeto'] = base[0]['nomeprojeto']
+    # remove titulo da base
+    result = list(map(lambda x : x.pop('nomeprojeto',None), base))
+
+    ### Grupos ###
+    controller = []
+    for num in numGrupos:
+        grupos = {}
+        alunos = []
+        for i in range(len(base)):
+            dadosAlunos = []
+            if(base[i]['num_grupo'] == num):
+                dadosAlunos.append(base[i]['nomealuno'])
+                dadosAlunos.append(base[i]['perfilaluno'])
+                alunos.append(dadosAlunos)            
+        grupos['num_grupo'] = num
+        grupos['alunos'] = alunos
+        controller.append(grupos)
+
+    json['grupos'] = controller
+    return dumps(json)
 
 api.add_resource(Projects, '/projects')
 api.add_resource(ProjectsId, '/projects/<chave>')
