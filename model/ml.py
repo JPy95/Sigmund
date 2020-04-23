@@ -13,7 +13,7 @@ class SigmindMl():
     normalizedX = scaler.transform(X)
 
     # Carregando o arquivo
-    modeloCluster = pickle.load(open('model/clustering/ClusteringModel.sav', 'rb'))
+    modeloCluster = pickle.load(open('clustering/ClusteringModel.sav', 'rb'))
     modeloCluster.n_clusters = self.findBestCluster(X)
 
     #Inserindo dados de grupos
