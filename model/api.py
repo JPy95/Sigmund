@@ -202,20 +202,19 @@ class Groups(Resource):
     # ML Gera Grupos
     result = model.fit(base)
     base = self.refreshDataBase(result)
-
-    ##### Criação do JSON #####
     base = [dict(zip(tuple(exect.keys()), i)) for i in exect.cursor]
+
+    #################### Criação do JSON ####################
     json = {}
-    
     #Armazena lista com range de grupos, exemplo: [1,2,3,4,5]
     numGrupos = np.unique(np.array(list(map(lambda x : x['num_grupo'], base))))
     
-    ### Titulo do Projeto ###
+    ################### Titulo do Projeto ###################
     json['nomeProjeto'] = base[0]['nomeprojeto']
     # remove titulo da base
     result = list(map(lambda x : x.pop('nomeprojeto',None), base))
 
-    ### Grupos ###
+    ######################### Grupos #########################
     controller = []
     for num in numGrupos:
         grupos = {}
