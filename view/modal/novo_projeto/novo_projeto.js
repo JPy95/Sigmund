@@ -36,6 +36,10 @@ function ValidarProjeto() {
       this.alunos.style.borderColor = 'red';
       this.erroAlunos.style.display = 'block';
       result = false;
+    } else if (parseInt(this.alunos.value) < 16) {
+      this.alunos.style.borderColor = 'red';
+      this.erroAlunos.innerHTML = 'A quantidade minima de alunos é 16.';
+      this.erroAlunos.style.display = 'block';
     } else {
       this.alunos.removeAttribute("style");
       this.erroAlunos.style.display = 'none';
@@ -44,7 +48,7 @@ function ValidarProjeto() {
 
   this.validacaoForm = function(){
     var _this = this;
-    if(this.newProjeto.value == "" || this.alunos.value == ""){
+    if(this.newProjeto.value == "" || this.alunos.value == "" || parseInt(this.alunos.value) < 16){
       this.validacaoProjeto();
       this.validacaoAlunos();
     } else {

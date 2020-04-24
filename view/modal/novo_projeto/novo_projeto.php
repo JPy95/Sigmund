@@ -17,8 +17,8 @@
           <p id="erroNewProjeto">Nome do Projeto não pode ser nulo.</p>
         </div>
         <div class="form-group">
-          <label for="alunos">E qual a quantidade de alunos?</label>
-          <input id="alunos" type="number" class="form-control w-35" id="alunos" name='alunos' min='4'>
+          <label for="alunos">Quantidade de alunos neste projeto?</label>
+          <input id="alunos" type="number" class="form-control w-35" id="alunos" name='alunos' min='16'>
           <p id="erroAlunos">Quantidade de Alunos não pode ser nulo.</p>
         </div>
       </div>
