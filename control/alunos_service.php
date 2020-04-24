@@ -29,7 +29,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $result = json_decode(curl_exec($ch));
 
 
-//$response = array('profile' => $maxAnswer, 'aluno' => $result);
+$response = json_encode(array('profile' => $maxAnswer, 'aluno' => $result));
 
-var_dump($result);
+echo ($response);
 ?>

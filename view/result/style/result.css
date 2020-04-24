@@ -10,6 +10,10 @@
   justify-content: center;
 }
 
+.alert{
+  display: none;
+}
+
 .btn-result-style{
   background-color: #540D70;
   color: white;
