@@ -8,6 +8,7 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from json import dumps
 import pandas as pd
+import numpy as np
 import ml #Algoritmo de Clusterizacao
 
 model = ml.SigmindMl()
