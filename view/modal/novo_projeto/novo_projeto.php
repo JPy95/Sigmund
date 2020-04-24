@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
           <label for="alunos">E qual a quantidade de alunos?</label>
-          <input id="alunos" type="number" class="form-control w-50" id="alunos" name='alunos' min='4'>
+          <input id="alunos" type="number" class="form-control w-35" id="alunos" name='alunos' min='4'>
           <p id="erroAlunos">Quantidade de Alunos não pode ser nulo.</p>
         </div>
       </div>

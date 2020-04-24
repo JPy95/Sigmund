@@ -10,6 +10,10 @@
   color: white;
 }
 
+.w-35{
+  width: 35% !important;
+}
+
 .modal-footer{
   border: none;
 }
@@ -74,6 +78,17 @@ h5{
   display: none;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 @media only screen and (max-width: 600px){
 
   #mobile{

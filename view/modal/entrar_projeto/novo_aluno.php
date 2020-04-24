@@ -14,7 +14,7 @@
       <div class="modal-body">
         <div class="form-group">
           <label for="nomeAluno">Qual o seu nome?</label>
-          <input type="nomeAluno" class="form-control w-75" id="nomeAluno" name='name' placeholder="Digite seu nome" maxlength="15">
+          <input type="nomeAluno" class="form-control w-35" id="nomeAluno" name='name' placeholder="Digite seu nome" maxlength="15">
           <p id="erroNome">Nome não pode ser nulo.</p>
         </div>
         <div class="form-group">
