@@ -177,7 +177,7 @@ class Groups(Resource):
     
     query = ''
     for i in range(0,len(base)):
-      query+='update sigmundi.grupos set num_grupo = '+str(base['grupos'][i])+' where idprojeto = '+str(self.idProjeto)+' and idaluno = '+str(base['idaluno'][i])+';'
+      query+='update sigmundi.grupos set num_grupo = '+str(base['grupos'][i])+' where idprojeto = '+str(base['idprojeto'][i])+' and idaluno = '+str(base['idaluno'][i])+';'
     
     self.conn.execute(query)
 
