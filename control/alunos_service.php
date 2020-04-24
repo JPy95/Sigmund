@@ -26,9 +26,10 @@ $ch = curl_init($urlAlunos);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $dataAluno);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result = json_decode(curl_exec($ch),true)[0];
+$result = json_decode(curl_exec($ch));
 
-$response = array('profile' => $maxAnswer, 'aluno' => $result);
 
-var_dump($response);
+//$response = array('profile' => $maxAnswer, 'aluno' => $result);
+
+var_dump($result);
 ?>

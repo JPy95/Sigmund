@@ -90,10 +90,10 @@ class Students(Resource):
       idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
       self.insertAlunoTableGrupos(idAluno[0]['idaluno'])
       self.insertAnsewrsTableQuiz(idAluno[0]['idaluno'])
-      result = {'success':True} 
+      result = True
     else:
-      result = {'success':False} 
-    return dumps(result)    
+      result = False
+    return result
 
   def insertAlunoTableGrupos(self,idAluno):
     query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
