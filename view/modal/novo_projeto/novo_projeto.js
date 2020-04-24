@@ -58,6 +58,9 @@ function ValidarProjeto() {
         method: 'POST', // or GET
         success: function(result){
           _this.setLocalStorage(result);
+        },
+        error: function() {
+          alert("There was an error. Try again please!");
         }
       });
     }
