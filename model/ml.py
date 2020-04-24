@@ -14,7 +14,7 @@ class SigmindMl():
 
     # Carregando o arquivo
     modeloCluster = pickle.load(open('clustering/ClusteringModel.sav', 'rb'))
-    modeloCluster.n_clusters = self.findBestCluster(len(X))
+    modeloCluster.n_clusters = self.findBestCluster(X)
 
     #Inserindo dados de grupos
     while True:
@@ -27,14 +27,12 @@ class SigmindMl():
     return base[['idaluno','grupos','idprojeto']]
 
   def findBestCluster(self,x):
-    qtdStudent = x
+    qtdStudent = len(x)
     qtdGroup = qtdStudent-1
     
     while(qtdStudent/qtdGroup < 4):
-        qtdGroup -= 1
+      qtdGroup -= 1
     
-    if(qtdStudent%2==0):
-        result = qtdGroup
-    elif(qtdStudent > 13):
-        result = qtdGroup - 1
-    return result
+    if(qtdStudent > 13):
+      qtdGroup -= 1
+    return qtdGroup

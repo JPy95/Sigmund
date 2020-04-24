@@ -23,7 +23,7 @@ function TablesGroups(){
           table = $('<table>')
           values = '<tr><th class="th-squad">Nome</th><th class="th-squad">Perfil</th></tr>'
           for(var z = 0; z < base['grupos'][j]['alunos'].length;z++){
-            values+='<tr><td class="td-squad">'+base['grupos'][j]['alunos'][z][0].slice(0, 15)+'</td><td class="td-squad">'+base['grupos'][j]['alunos'][z][1]+'</td></tr>'
+            values+='<tr><td class="td-squad">'+base['grupos'][j]['alunos'][z][0]+'</td><td class="td-squad">'+base['grupos'][j]['alunos'][z][1]+'</td></tr>'
           }
           this.grupos.append(divGroupTables.append(divTable.append(table.append(values))));
         }
@@ -78,6 +78,7 @@ function TablesGroups(){
       url: 'http://projetosacademico.com.br:5000/grupos',
       method: 'GET',
       success: function(result){
+        //console.log(JSON.parse(result)['grupos'][0]['alunos'][0]);
         _this.createTable(JSON.parse(result));
       }
     });
