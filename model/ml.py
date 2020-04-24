@@ -27,12 +27,14 @@ class SigmindMl():
     return base[['idaluno','grupos','idprojeto']]
 
   def findBestCluster(self,x):
-    qtdStudent = len(x)
-    qtdGroup = qtdStudent-1
+    qtdStudent = x
+    if(qtdStudent%2==0):
+      qtdGroup = qtdStudent-2
+      iterator = 2
+    else:
+      qtdGroup = qtdStudent-1
+      iterator = 1
     
     while(qtdStudent/qtdGroup < 4):
-      qtdGroup -= 1
-    
-    if(qtdStudent > 13):
-      qtdGroup -= 1
+      qtdGroup -= iterator
     return qtdGroup
