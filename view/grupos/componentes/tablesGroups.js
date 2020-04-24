@@ -77,7 +77,8 @@ function TablesGroups(){
       url: 'http://projetosacademico.com.br:5000/grupos',
       method: 'GET', // or GET
       success: function(result){
-        _this.createTable(result);
+        console.log(result);
+        //_this.createTable(result);
       }
     });
   }
