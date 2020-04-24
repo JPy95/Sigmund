@@ -159,7 +159,8 @@ class Groups(Resource):
     #Busca questionarios
     query = '''
       select 
-        a.* 
+        a.*,
+        c.idprojeto
       from sigmundi.questionarios a
       inner join sigmundi.grupos b on b.idaluno = a.idaluno
       inner join sigmundi.projetos c on c.idprojeto = b.idprojeto

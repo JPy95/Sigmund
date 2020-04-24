@@ -18,7 +18,7 @@ class SigmindMl():
 
     #Inserindo dados de grupos
     base['grupos'] = modeloCluster.fit(normalizedX).labels_
-    return base[['idaluno','grupos']]
+    return base[['idaluno','grupos','idprojeto']]
 
   def findBestCluster(self,x):
     qtdStudent = len(x)
