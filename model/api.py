@@ -115,9 +115,9 @@ class Students(Resource):
     exect = self.conn.execute(query)
     base = [dict(zip(tuple(exect.keys()), i)) for i in exect.cursor][0]
 
-    if(base['qtdalunosp'] != base['qtdalunosg']){
+    if(base['qtdalunosp'] != base['qtdalunosg']):
       result = True
-    } else:
+    else:
       result = False
     return result
 
