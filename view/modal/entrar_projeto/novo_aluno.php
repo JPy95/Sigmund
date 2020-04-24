@@ -10,9 +10,7 @@
         </button>
       </div>
       <!--Body-->
-      <div class="alert alert-danger" role="alert">
-        Você já está participando deste grupo!
-      </div>
+      <div class="alert alert-danger" role="alert"></div>
       <div class="modal-body">
         <div class="form-group">
           <label for="nomeAluno">Qual o seu nome?</label>

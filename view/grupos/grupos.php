@@ -12,7 +12,7 @@
       <div class="title mb-3">
         <h3>Nome do Projeto</h3>
       </div>
-      <div class="painel_grupo container col-11">
+      <div class="painel_grupo container col-10">
         <div class="group-squad"></div>
       </div>
     </div>

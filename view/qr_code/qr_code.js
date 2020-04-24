@@ -32,7 +32,7 @@ function QrCode(){
             console.log(req);
             qtdAlunos = totalAlunos-req[0]['qtdalunos'];
             if(qtdAlunos == 0){
-              alert('Todos Responderam');
+              window.location.replace('../grupos/grupos.php');
             } else {
               _this.alunos.innerHTML = qtdAlunos;
             }
