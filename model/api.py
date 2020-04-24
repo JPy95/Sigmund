@@ -201,7 +201,7 @@ class Groups(Resource):
     '''
     # ML Gera Grupos
     result = model.fit(base)
-    base = self.refreshDataBase(result)
+    exect = self.refreshDataBase(result)
     base = [dict(zip(tuple(exect.keys()), i)) for i in exect.cursor]
 
     #################### Criação do JSON ####################
