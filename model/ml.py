@@ -19,7 +19,7 @@ class SigmindMl():
     #Inserindo dados de grupos
     while True:
       try:
-        base['grupos'] = modeloCluster.fit(normalizedX).labels_
+        base['grupos'] = modeloCluster.fit(X).labels_
         break
       except IndexError:
         pass
