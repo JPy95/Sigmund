@@ -34,7 +34,10 @@ class SigmindMl():
         qtdGroup -= 1
     
     if(qtdStudent%2==0):
-        result = qtdGroup
+        if(qtdStudent == 16):
+            result = qtdGroup +1
+        else:
+            result = qtdGroup
     elif(qtdStudent > 13):
         result = qtdGroup - 1
     return result
