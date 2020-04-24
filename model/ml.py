@@ -14,7 +14,7 @@ class SigmindMl():
 
     # Carregando o arquivo
     modeloCluster = pickle.load(open('clustering/ClusteringModel.sav', 'rb'))
-    modeloCluster.n_clusters = self.findBestCluster(X)
+    modeloCluster.n_clusters = self.findBestCluster(len(X))
 
     #Inserindo dados de grupos
     while True:
