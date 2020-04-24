@@ -85,11 +85,15 @@ class Students(Resource):
     return query.cursor.rowcount
 
   def get(self):
-    query = self.conn.execute("select idaluno from sigmundi.alunos where email = '{}' ".format(self.email))
-    idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    self.insertAlunoTableGrupos(idAluno[0]['idaluno'])
-    self.insertAnsewrsTableQuiz(idAluno[0]['idaluno'])
-    return jsonify(idAluno)    
+    if(self.checkSizeGrupo()):
+      query = self.conn.execute("select idaluno from sigmundi.alunos where email = '{}' ".format(self.email))
+      idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
+      self.insertAlunoTableGrupos(idAluno[0]['idaluno'])
+      self.insertAnsewrsTableQuiz(idAluno[0]['idaluno'])
+      result = {'success':True} 
+    else:
+      result = {'success':False} 
+    return dumps(result)    
 
   def insertAlunoTableGrupos(self,idAluno):
     query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
@@ -98,6 +102,24 @@ class Students(Resource):
 
   def insertAnsewrsTableQuiz(self,idAluno):
     self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(idAluno,','.join(self.ansewrs)))
+
+  def checkSizeGrupo(self):
+    query = '''
+            select 
+              a.qtdalunos as qtdAlunosP,
+              count(b.idaluno) as qtdAlunosG
+            from sigmundi.projetos a
+            inner join sigmundi.grupos b on b.idprojeto = a.idprojeto
+            where chave = '{}'
+            group by 1'''.format(self.chaveProjeto)
+    exect = self.conn.execute(query)
+    base = [dict(zip(tuple(exect.keys()), i)) for i in exect.cursor][0]
+
+    if(base['qtdalunosp'] != base['qtdalunosg']){
+      result = True
+    } else:
+      result = False
+    return result
 
 class Login(Resource):
 

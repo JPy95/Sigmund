@@ -28,6 +28,8 @@ function ValidarAluno() {
     if (this.nomeAluno.value == "") {
       this.nomeAluno.style.borderColor = 'red';
       this.erroNome.style.display = 'block';
+    } else if (this.nomeAluno.value.length > 15){
+      this.nomeAluno.innerHTML = this.nomeAluno.value.slice(0,15);
     } else {
       this.nomeAluno.removeAttribute("style");
       this.erroNome.style.display = 'none';
