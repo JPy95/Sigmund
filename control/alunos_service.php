@@ -28,5 +28,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $result = json_decode(curl_exec($ch),true)[0];
 
-echo($maxAnswer,$result);
+$response = array('profile' => $maxAnswer, 'aluno' => $result);
+
+var_dump($response);
 ?>

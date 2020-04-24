@@ -106,10 +106,10 @@ class Students(Resource):
   def checkSizeGrupo(self):
     query = '''
             select 
-              a.qtdalunos as qtdAlunosP,
-              count(b.idaluno) as qtdAlunosG
+              a.qtdalunos,
+              count(b.idaluno) as qtdAlunos
             from sigmundi.projetos a
-            inner join sigmundi.grupos b on b.idprojeto = a.idprojeto
+            left join sigmundi.grupos b on b.idprojeto = a.idprojeto
             where chave = '{}'
             group by 1'''.format(self.chaveProjeto)
     exect = self.conn.execute(query)

@@ -173,7 +173,7 @@
           url: '../../control/alunos_service.php?',
           method: 'POST', // or GET
           success: function(result){
-            alert(result);
+            console.log(result);
             //window.location.replace("../result/result.php?perfil="+result);
           }
         });
