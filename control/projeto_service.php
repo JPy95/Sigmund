@@ -14,7 +14,7 @@ $data = json_encode(array(
     'qtdAlunos' => $_POST['alunos']
 ));
 
-curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_exec($ch);

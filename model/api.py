@@ -59,7 +59,7 @@ class ProjectsId(Resource):
   
 class Students(Resource):
 
-  conn,nameStudent,email,chaveProjeto,profile,ansewrs = None,None,None,None,None,None
+  conn,nameStudent,email,chaveProjeto,profile,answers = None,None,None,None,None,None
   
   def __init__(self):
     self.conn = db_connect.connect()
@@ -67,7 +67,7 @@ class Students(Resource):
     self.email = request.json['email'].encode('utf-8')
     self.chaveProjeto = request.json['chaveProjeto']
     self.perfil = request.json['profile'].encode('utf-8')
-    self.ansewrs = request.json['ansewrs']
+    self.answers = request.json['answers']
 
   def post(self):
     if(self.check_student(self.email) == 0):
@@ -101,7 +101,7 @@ class Students(Resource):
     self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent,self.perfil)) 
 
   def insertAnsewrsTableQuiz(self,idAluno):
-    self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(idAluno,','.join(self.ansewrs)))
+    self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(idAluno,','.join(self.answers)))
 
   def checkSizeGrupo(self):
     query = '''
