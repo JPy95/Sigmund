@@ -66,7 +66,7 @@ function ValidarAluno() {
     } else {
       var _this = this;
       $.ajax({
-        data: 'email='+_this.email.value+'&chaveProjeto='+_this.chaveProjeto.value,
+        data: 'email='+_this.email.value+'&chave='+_this.chaveProjeto.value,
         url: 'http://projetosacademico.com.br:5000/login',
         method: 'GET',
         success: function(result){
