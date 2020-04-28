@@ -127,7 +127,7 @@ class Login(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.email =  request.args.get('email')
+    self.email =  request.args.get('email').encode('utf-8')
     self.chaveProjeto = request.args.get('chaveProjeto')
 
   def get(self):
