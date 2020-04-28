@@ -128,7 +128,7 @@ class Login(Resource):
   def __init__(self):
     self.conn = db_connect.connect()
     self.email =  request.args.get('email')
-    self.chave = request.args.get('chave')
+    self.chave = request.args.get('chaveProjeto')
 
   def get(self):
     if(self.checkGruop() == 0):
@@ -139,7 +139,7 @@ class Login(Resource):
     return resp
 
   def checkGruop(self):
-    query = self.conn.execute("select * from sigmundi.projetos where chave = '{}'".format(self.chave))
+    query = self.conn.execute("select * from sigmundi.projetos where chave = '{}'".format(self.chaveProjeto))
     result = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
     return len(result)
 
@@ -153,7 +153,7 @@ class Login(Resource):
                                   from sigmundi.projetos a
                                   inner join sigmundi.grupos b on b.idprojeto = a.idprojeto
                                   inner join sigmundi.alunos c on c.idaluno = b.idaluno
-                                  where chave = '{}' '''.format(self.chave))
+                                  where chave = '{}' '''.format(self.chaveProjeto))
     result = pd.DataFrame([dict(zip(tuple(query.keys()), i)) for i in query.cursor])
 
     if(len(result)==0):
