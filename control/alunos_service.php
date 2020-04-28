@@ -20,7 +20,7 @@ $dataAluno = json_encode(array(
     'email'         => $_POST['emailAluno'], 
     'chaveProjeto'  => $_POST['chaveProjeto'],
     'profile'       => $profile,
-    'ansewrs'       => explode(",", $_POST['answers'])
+    'answers'       => explode(",", $_POST['answers'])
 ));
 $ch = curl_init($urlAlunos);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $dataAluno);
