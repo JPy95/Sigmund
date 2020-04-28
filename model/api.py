@@ -123,12 +123,12 @@ class Students(Resource):
 
 class Login(Resource):
 
-  conn, email, chave = None,None,None
+  conn, email, chaveProjeto = None,None,None
 
   def __init__(self):
     self.conn = db_connect.connect()
     self.email =  request.args.get('email')
-    self.chave = request.args.get('chaveProjeto')
+    self.chaveProjeto = request.args.get('chaveProjeto')
 
   def get(self):
     if(self.checkGruop() == 0):
