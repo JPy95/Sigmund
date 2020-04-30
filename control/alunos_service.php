@@ -1,5 +1,5 @@
 <?php
-$urlAlunos  = 'http://projetosacademico.com.br:5000/students';
+$urlAlunos  = 'http://localhost:5000/students';
 
 $answers = explode(",", $_POST['answers']);
 $answers = array_count_values($answers);

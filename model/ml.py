@@ -6,7 +6,7 @@ import pickle
 
 class SigmindMl():
   def fit(self, base):
-    X = base.values[:,2:-1]
+    X = base.values[:,3:-1]
 
     # Gerando os dados normalizados
     scaler = Normalizer().fit(X)

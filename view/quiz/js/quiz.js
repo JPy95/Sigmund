@@ -174,7 +174,6 @@
           method: 'POST', // or GET
           success: function(result){
             var resp = JSON.parse(result);
-            console.log(resp);
             window.location.replace("../result/result.php?aluno="+resp['aluno']+"&perfil="+resp['profile']);
           }
         });

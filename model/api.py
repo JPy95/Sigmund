@@ -24,7 +24,7 @@ class Projects(Resource):
   conn,nameProject,date,idProjeto,qtdAlunos,chave=None,None,None,None,None,None
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameProject = request.json['nameProject'].encode('utf-8')
+    self.nameProject = request.json['nameProject']
     self.chave = request.json['chave']
     self.qtdAlunos = request.json['qtdAlunos']
     self.date = str(datetime.now())[:str(datetime.now()).find('.')]
@@ -63,10 +63,10 @@ class Students(Resource):
   
   def __init__(self):
     self.conn = db_connect.connect()
-    self.nameStudent = request.json['nameStudent'].encode('utf-8')
-    self.email = request.json['email'].encode('utf-8')
+    self.nameStudent = request.json['nameStudent']
+    self.email = request.json['email']
     self.chaveProjeto = request.json['chaveProjeto']
-    self.perfil = request.json['profile'].encode('utf-8')
+    self.perfil = request.json['profile']
     self.answers = request.json['answers']
 
   def post(self):
@@ -74,34 +74,35 @@ class Students(Resource):
       self.conn.execute("insert into sigmundi.alunos values(now(), DEFAULT,'{0}','{1}')".format(self.nameStudent,self.email))
       self.get()
     else:
-      return self.get()
+      self.get()
 
   def check_student(self,email):
     '''
       Verifica se o aluno ja esta cadastrado no banco;
-      returno 0 ou retorno > 0;
+      returno = 0 ou retorno > 0;
     '''
-    query = self.conn.execute("select * from sigmundi.alunos where email = '{0}' ".format(self.email))
+    query = self.conn.execute("select * from sigmundi.alunos where email = '{}' ".format(email))
     return query.cursor.rowcount
 
   def get(self):
     if(self.checkSizeGrupo()):
       query = self.conn.execute("select idaluno from sigmundi.alunos where email = '{}' ".format(self.email))
       idAluno = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-      self.insertAlunoTableGrupos(idAluno[0]['idaluno'])
-      self.insertAnsewrsTableQuiz(idAluno[0]['idaluno'])
+      self.insertAlunoTableGrupos(idAluno[0]['idaluno'],self.insertAnsewrsTableQuiz(idAluno[0]['idaluno']))
       result = True
     else:
       result = False
     return result
 
-  def insertAlunoTableGrupos(self,idAluno):
+  def insertAlunoTableGrupos(self,idAluno,idQuiz):
     query = self.conn.execute("select idprojeto from sigmundi.projetos where chave = '{}' ".format(self.chaveProjeto))
     idProjeto = [dict(zip(tuple(query.keys()), i)) for i in query.cursor]
-    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}')".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent,self.perfil)) 
+    self.conn.execute("insert into sigmundi.grupos values(now(),{0},null,{1},'{2}','{3}',{4})".format(idProjeto[0]['idprojeto'], idAluno,self.nameStudent,self.perfil,idQuiz)) 
 
   def insertAnsewrsTableQuiz(self,idAluno):
     self.conn.execute('insert into sigmundi.questionarios values(now(),DEFAULT,{0},{1})'.format(idAluno,','.join(self.answers)))
+    query = self.conn.execute('select max(idquestionario) as idquiz from sigmundi.questionarios where idaluno = {}'.format(idAluno))
+    return [dict(zip(tuple(query.keys()), i)) for i in query.cursor][0]['idquiz']
 
   def checkSizeGrupo(self):
     query = '''
@@ -127,7 +128,7 @@ class Login(Resource):
 
   def __init__(self):
     self.conn = db_connect.connect()
-    self.email =  request.args.get('email').encode('utf-8')
+    self.email =  request.args.get('email')
     self.chaveProjeto = request.args.get('chaveProjeto')
 
   def get(self):
@@ -181,13 +182,13 @@ class Groups(Resource):
   def get(self):
     #Busca questionarios
     query = '''
-      select 
-        a.*,
-        c.idprojeto
-      from sigmundi.questionarios a
-      inner join sigmundi.grupos b on b.idaluno = a.idaluno
-      inner join sigmundi.projetos c on c.idprojeto = b.idprojeto
-      where c.chave = '{}'
+      select
+        c.*,
+        b.idprojeto
+      from sigmundi.grupos a
+      inner join sigmundi.projetos b on b.idprojeto = a.idprojeto
+      inner join sigmundi.questionarios c on c.idaluno = a.idaluno and c.idquestionario = a.idquestionario
+      where b.chave = '{}'
     '''.format(self.chave)
     exect = self.conn.execute(query)
     #salva base de questionarios em DataFrame
