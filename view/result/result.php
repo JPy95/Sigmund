@@ -41,7 +41,6 @@
           }
         ?>
       </p>
-      <a href="quiz.php"><button class='btn-result-style mt-2'>Responder novamente?</button></a>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
