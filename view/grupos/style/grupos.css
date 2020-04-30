@@ -17,9 +17,9 @@ h2{
 table{
     background: white;
     color: black;
-    border-radius: 5px;
     box-shadow: 4px 4px 5px 0px black;
     margin-top: 5px;
+    max-width: 270px;
 }
 
 th{

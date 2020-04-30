@@ -78,8 +78,11 @@ function TablesGroups(){
       url: 'http://projetosacademico.com.br:5000/grupos',
       method: 'GET',
       success: function(result){
-        //console.log(JSON.parse(result)['grupos'][0]['alunos'][0]);
-        _this.createTable(JSON.parse(result));
+        console.log(JSON.parse(result));
+        resp = JSON.parse(result);
+        this.nomeProjeto.innerHTML = resp['nomeProjeto'];
+        _this.createTable(resp);
+        
       }
     });
   }
