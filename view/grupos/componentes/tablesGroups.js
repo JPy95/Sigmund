@@ -80,7 +80,7 @@ function TablesGroups(){
       success: function(result){
         console.log(JSON.parse(result));
         resp = JSON.parse(result);
-        this.nomeProjeto.innerHTML = resp['nomeProjeto'];
+        _this.nomeProjeto.innerHTML = resp['nomeProjeto'];
         _this.createTable(resp);
         
       }
